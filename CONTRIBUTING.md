@@ -46,7 +46,7 @@ Make sure your branch name is descriptive.
 - Start with a capitalized verb (e.g., "Fix," "Add," "Update").
 - Reference any related issues or pull requests.
 
-### Submitting Pull Requests 
+## Submitting Pull Requests 
 1. Push your changes to your forked repository
    ```bash
    git push origin feature
@@ -56,10 +56,10 @@ Make sure your branch name is descriptive.
 4. Mention any related issues or pull requests in your description.
 5. Submit your pull request, and our project managers will review it as soon as possible.
 
-### Code of Conduct 
+## Code of Conduct 
 Please read and follow our Code of Conduct. We expect all contributors to be respectful and create a welcoming environment for everyone.
 
-### Need Help? 
+## Need Help? 
 If you have questions or need assistance, feel free to reach out to us on our Discord server or create an issue on GitHub.
 
 Thank you for your contribution! We appreciate your help in making BytePSU's Discord Bot even better.
