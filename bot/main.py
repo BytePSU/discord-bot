@@ -13,3 +13,8 @@ bot_name = "BytePSU"
 @client.event
 async def on_ready():
     print(f"{bot_name} is now running")
+
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
