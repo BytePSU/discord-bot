@@ -22,10 +22,10 @@ We're thrilled that you're interested in contributing to our project. Before you
 2. Clone your forked repository to your local machine:
 
 ```bash
-git clone https://github.com/yourusername/your-discord-bot.git
+git clone https://github.com/yourusername/discord-bot.git
 ```
 ```bash 
-git remote add upstream https://github.com/originalauthor/your-discord-bot.git
+git remote add upstream https://github.com/AdamPSU/discord-bot.git
 ```
 
 Now you're ready to make changes and contribute!
