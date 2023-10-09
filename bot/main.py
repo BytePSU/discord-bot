@@ -1,6 +1,5 @@
-
 import discord
-import responses
+from discord import app_commands
 import os
 
 
@@ -9,27 +8,27 @@ intent = discord.Intents.default()
 intent.message_content = True
 
 client = discord.Client(intents=intent)
+tree = app_commands.CommandTree(client)
 
 key = os.environ.get("DISCORD_TOKEN")
+guild_id = os.environ.get("DISCORD_GUILD_ID")
 bot_name = "BytePSU"
 
-#on_ready() begins when the program runs and outputs a statement letting the user know 
+
+# on_ready() begins when the program runs. It syncs the tree when called, and outputs a statement letting the user know the bot is ready.
 @client.event
 async def on_ready():
+    await tree.sync(guild=discord.Object(id=guild_id))
     print(f"{bot_name} is now running")
 
-@client.event
-async def on_message(message):
-    prompt = message
-    if message.author == client.user:
-        return
-    if message.content.startswith('/we are'):
-        await message.channel.send('We are PENN STATE!')
-    elif message.content.startswith('/hello'):
-        await message.channel.send('Whats up!')
-    else:
-        await message.channel.send('I dont know what you said')
+@tree.command(name = "we_are", description = "Responds with the Penn State chant.", guild=discord.Object(id=guild_id))
+async def we_are(interact):
+    await interact.response.send_message('We are PENN STATE!')
+
+@tree.command(name = "hello", description = "Responds with a greeting message.", guild=discord.Object(id=guild_id))
+async def hello(interact):
+    await interact.response.send_message('Whats up!')
+
+
 
 client.run(key)
-
-
