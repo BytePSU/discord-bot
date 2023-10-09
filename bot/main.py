@@ -29,6 +29,23 @@ async def we_are(interact):
 async def hello(interact):
     await interact.response.send_message('Whats up!')
 
+@tree.command(name = "internship_update", description = "posts internships regularly", guild=discord.Object(id=guild_id))
+async def internship_embed(interact): 
+    embed = discord.Embed(title="Internship Update", 
+                          colour=discord.Colour(0x97b9fa), 
+                          url="https://www.levels.fyi/js/internshipData.json")
+    
+    #embed.set_image(url="#")
+    embed.set_thumbnail(url="https://cdn.discordapp.com/embed/avatars/0.png")
+    embed.set_footer(text="", icon_url="https://cdn.discordapp.com/embed/avatars/0.png")
+
+    embed.add_field(name="TBD", value="sample text")
+    embed.add_field(name="TBD", value="sample text")
+    embed.add_field(name="TBD", value="sample text")
+    embed.add_field(name="TBD-inline", value="test-1", inline=True)
+    embed.add_field(name="TBD-inline", value="test-2", inline=True)
+
+    await interact.response.send_message(embed=embed)
 
 
 client.run(key)
