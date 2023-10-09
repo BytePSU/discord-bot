@@ -11,11 +11,11 @@ def checkForKey(company, key):
 def main():
     link = "https://www.levels.fyi/js/internshipData.json"
     json_data = requests.get(link).text
-    intership_data = json.loads(json_data)
+    internship_data = json.loads(json_data)
 
     amount = 0
     
-    for company in intership_data:
+    for company in internship_data:
         if checkForKey(company,'yr') == "2024":
             print("-------------------")
             print("New Internship:")
