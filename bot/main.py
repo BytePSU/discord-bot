@@ -4,6 +4,7 @@ import random
 import os
 from dotenv import load_dotenv, find_dotenv
 import json
+import requests
 
 def check_for_key(internship, key):
     try:
