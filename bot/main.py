@@ -1,6 +1,8 @@
 import discord
 from discord import app_commands
+import random 
 import os
+
 
 
 #Intents allow the bot to retrieve certain events
@@ -31,11 +33,16 @@ async def hello(interact):
 
 @tree.command(name = "internship_update", description = "posts internships regularly", guild=discord.Object(id=guild_id))
 async def internship_embed(interact): 
+    """Embeds internship content with a random color on each post"""
+    with open('utils/embed_colors.txt', 'r') as f: 
+        random_colors = [int(line.strip(), 16) for line in f.readlines()]
+        color = random.choice(random_colors)
+
     embed = discord.Embed(title="Internship Update", 
-                          colour=discord.Colour(0x97b9fa), 
+                          colour=discord.Colour(color), 
                           url="https://www.levels.fyi/js/internshipData.json")
     
-    #embed.set_image(url="#")
+
     embed.set_thumbnail(url="https://cdn.discordapp.com/embed/avatars/0.png")
     embed.set_footer(text="", icon_url="https://cdn.discordapp.com/embed/avatars/0.png")
 
@@ -48,4 +55,4 @@ async def internship_embed(interact):
     await interact.response.send_message(embed=embed)
 
 
-client.run(key)
+client.run('MTE1ODIzODMwOTA4NTA5ODAzNQ.GgSI2s.u9bNJ-pucUPUtFJXBseuT63xcZPLxtcqeZyzUQ')
