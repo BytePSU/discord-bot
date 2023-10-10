@@ -4,7 +4,7 @@ import random
 import os
 from dotenv import load_dotenv, find_dotenv
 
-load_dotenv(find_dotenv())
+load_dotenv()
 
 #Intents allow the bot to retrieve certain events
 intent = discord.Intents.default()
@@ -13,8 +13,8 @@ intent.message_content = True
 client = discord.Client(intents=intent)
 tree = app_commands.CommandTree(client)
 
-key = os.getenv('DISCORD_TOKEN')
-guild_id = os.getenv('DISCORD_GUILD_ID')
+key = os.getenv('BOT_TOKEN')
+guild_id = os.getenv('BOT_GUILD_ID')
 bot_name = 'BytePSU'
 
 
@@ -54,6 +54,5 @@ async def internship_embed(interact):
     embed.add_field(name="TBD-inline", value="test-2", inline=True)
 
     await interact.response.send_message(embed=embed)
-
 
 client.run(key)
