@@ -55,4 +55,4 @@ async def internship_embed(interact):
     await interact.response.send_message(embed=embed)
 
 
-client.run('MTE1ODIzODMwOTA4NTA5ODAzNQ.GgSI2s.u9bNJ-pucUPUtFJXBseuT63xcZPLxtcqeZyzUQ')
+client.run(key)
