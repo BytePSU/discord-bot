@@ -5,6 +5,8 @@ import os
 from dotenv import load_dotenv, find_dotenv
 import json
 import requests
+# import color.py here
+from color import calc_avg_color
 
 
 load_dotenv()
@@ -55,45 +57,22 @@ async def hello(interact):
     await interact.response.send_message('Whats up!')
 
 
-@tree.command(name="internship_update", description="posts internships regularly", guild=discord.Object(id=guild_id))
-async def internship_embed(interact):
-    """Embeds internship content with a random color on each post"""
-    with open('utils/embed_colors.txt', 'r') as f:
-        random_colors = [int(line.strip(), 16) for line in f.readlines()]
-        color = random.choice(random_colors)
-
-    embed = discord.Embed(title="Internship Update",
-                          colour=discord.Colour(color),
-                          url="https://www.levels.fyi/js/internshipData.json")
-
-    embed.set_thumbnail(url="https://cdn.discordapp.com/embed/avatars/0.png")
-    embed.set_footer(
-        text="", icon_url="https://cdn.discordapp.com/embed/avatars/0.png")
-
-    embed.add_field(name="TBD", value="sample text")
-    embed.add_field(name="TBD", value="sample text")
-    embed.add_field(name="TBD", value="sample text")
-    embed.add_field(name="TBD-inline", value="test-1", inline=True)
-    embed.add_field(name="TBD-inline", value="test-2", inline=True)
-
-    await interact.response.send_message(embed=embed)
-
-
 @tree.command(name="get_internship", description="Grabs internship data of given index.", guild=discord.Object(id=guild_id))
 async def get_internship(interact, index: int):
+
     if index > len(internships_data) or index < 0:
         await interact.response.send_message(f"Internship #{index} does not exist.")
         return
 
     embed = discord.Embed(title=f"Internship #{index}",
-                          colour=discord.Colour(0x97b9fa),
+                          colour=discord.Colour(int(calc_avg_color(internships_data[index]['icon']).lstrip('#'), 16)),
                           url=check_for_key(internships_data[index], 'link'))
 
     embed.set_thumbnail(url=check_for_key(internships_data[index], 'icon'))
     embed.set_footer(
         text="BytePSU", icon_url="https://cdn.discordapp.com/embed/avatars/0.png")
 
-    embed.add_field(name="Hiring Company", value=check_for_key(
+    embed.add_field(name="Company", value=check_for_key(
         internships_data[index], 'company'))
     embed.add_field(name="Job Title", value=check_for_key(
         internships_data[index], 'title'))
@@ -104,11 +83,12 @@ async def get_internship(interact, index: int):
     embed.add_field(name="Location", value=check_for_key(
         internships_data[index], 'loc'))
     embed.add_field(
-        name="Salary", value=f"${check_for_key(internships_data[index],'monthlySalary')} / month\n(${check_for_key(internships_data[index],'hourlySalary')} / hr)")
+        name="Salary", value=f"${check_for_key(internships_data[index],'monthlySalary')}/mo\n${check_for_key(internships_data[index],'hourlySalary')}/hr")
     
     embed.add_field(name="More Details", value=check_for_key(
         internships_data[index], 'moreInfo'))
 
     await interact.response.send_message(embed=embed)
+
 
 client.run(key)
