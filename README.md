@@ -1,5 +1,5 @@
 <h1 align=center>
-    <img src="https://i.imgur.com/XiavREx.jpg" width=400>
+    <img src="https://i.imgur.com/XiavREx.jpg" width=375>
     <br>BytePSU Bot (temporary name)</br>
 </h1>
 
@@ -9,8 +9,6 @@
   <a href="#overview">Overview</a>
   •
   <a href="#requirements">Requirements</a>
-  •
-  <a href="#plugins">Plugins</a>
   •
   <a href="#license">License</a>
 </p>
