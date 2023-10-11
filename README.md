@@ -1,5 +1,5 @@
 <h1 align=center>
-    <img src="https://i.imgur.com/XiavREx.jpg">
+    <img src="https://i.imgur.com/XiavREx.jpg" width=400>
     <br>BytePSU Bot (temporary name)</br>
 </h1>
 
@@ -24,7 +24,7 @@ Keep in mind that the bot is currently under heavy development.
 
 This is the first collaborative project from BytePSU club.
 # Requirements
-This Discord uses [Python 3.11](python.org) and discord.py.
+This Discord uses [Python 3.11](python.org) and [discord.py](https://discordpy.readthedocs.io/en/stable/).
 
 A requirements.txt is included to download all of the packages in mass.
 
