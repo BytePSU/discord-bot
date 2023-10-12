@@ -17,8 +17,7 @@ levelsfyi_link = "https://www.levels.fyi/js/internshipData.json"
 levelsfyi_json = requests.get(levelsfyi_link).text
 internships = json.loads(levelsfyi_json)
 filtered_internships = [yr for yr in internships if yr['yr'] == '2024']
-filtered_internships = [
-    seasons for seasons in filtered_internships if seasons['season'] == 'Summer']
+filtered_internships = [seasons for seasons in filtered_internships if seasons['season'] == 'Summer']
 
 
 def EditJson():
