@@ -58,12 +58,13 @@ async def get_internship(interact, index: int):
         await interact.response.send_message(f"Internship #{index} does not exist.")
         return
 
+    #to style internship updates
     embed = discord.Embed(
         title=f"Internship #{index}", 
         colour=discord.Colour(color), 
         url=check_for_key(internships_data[index], 'link'))
+    
     embed.set_thumbnail(url=check_for_key(internships_data[index], 'icon'))
-    embed.set_footer(text="BytePSU", icon_url="https://cdn.discordapp.com/embed/avatars/0.png")
     embed.add_field(name="Company", value=check_for_key(internships_data[index], 'company'))
     embed.add_field(name="Job Title", value=check_for_key(internships_data[index], 'title'))
     embed.add_field(name="Required Education", value=check_for_key(internships_data[index], 'educationLevel'))
@@ -71,8 +72,13 @@ async def get_internship(interact, index: int):
     embed.add_field(name="Location", value=check_for_key(internships_data[index], 'loc'))
     embed.add_field(name="Salary", value=f"${check_for_key(internships_data[index],'monthlySalary')}/mo\n${check_for_key(internships_data[index],'hourlySalary')}/hr")
     embed.add_field(name="More Details", value=check_for_key(internships_data[index], 'moreInfo'))
+    embed.set_footer(text="BytePSU", icon_url="https://cdn.discordapp.com/embed/avatars/0.png")
 
-    await interact.response.send_message(embed=embed)
+    #buttons
+    url_view = discord.ui.View() 
+    url_view.add_item(discord.ui.Button(label='Apply', style=discord.ButtonStyle.url, url=check_for_key(internships_data[index], 'link')))
+    url_view.add_item(discord.ui.Button(label='Test', style=discord.ButtonStyle.green))
+    await interact.response.send_message(embed=embed, view=url_view)
 
 
 client.run(TOKEN)
