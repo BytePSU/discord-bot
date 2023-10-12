@@ -5,6 +5,8 @@ import os
 from dotenv import load_dotenv, find_dotenv
 import json
 import requests
+# import color.py here
+from color import calc_avg_color
 
 
 load_dotenv()
@@ -57,16 +59,13 @@ async def hello(interact):
 
 @tree.command(name="get_internship", description="Grabs internship data of given index.", guild=discord.Object(id=guild_id))
 async def get_internship(interact, index: int):
-    with open('utils/embed_colors.txt', 'r') as f:
-        random_colors = [int(line.strip(), 16) for line in f.readlines()]
-        color = random.choice(random_colors)
 
     if index > len(internships_data) or index < 0:
         await interact.response.send_message(f"Internship #{index} does not exist.")
         return
 
     embed = discord.Embed(title=f"Internship #{index}",
-                          colour=discord.Colour(color),
+                          colour=discord.Colour(int(calc_avg_color(internships_data[index]['icon']).lstrip('#'), 16)),
                           url=check_for_key(internships_data[index], 'link'))
 
     embed.set_thumbnail(url=check_for_key(internships_data[index], 'icon'))
