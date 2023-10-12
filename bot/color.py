@@ -36,7 +36,3 @@ def calc_avg_color(url):
         color_code = f"#{avg_red:02x}{avg_green:02x}{avg_blue:02x}"
 
     return color_code
-
-if __name__ == "__main__":
-    code = calc_avg_color("https://onwardstate.com/wp-content/uploads/2015/07/Screen-Shot-2015-08-04-at-1.56.47-AM.png")
-    print(code)
