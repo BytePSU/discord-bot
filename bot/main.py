@@ -6,7 +6,6 @@ from dotenv import load_dotenv, find_dotenv
 import json
 import requests
 # import color.py here
-from color import calc_avg_color
 
 
 load_dotenv()
