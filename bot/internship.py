@@ -24,3 +24,6 @@ def update():
     with open('../database/internships.json', 'w') as f:
         json.dump(filtered_internships, f, indent=4)
         f.close()
+
+if __name__ == "__main__":
+    print("internship.py is not meant to be run directly unless for testing.")
