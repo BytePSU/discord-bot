@@ -41,3 +41,7 @@ def calc_avg_color(url):
             random_colors = [int(line.strip(), 16) for line in f.readlines()]
             color = random.choice(random_colors)
         return color
+    
+
+if __name__ == "__main__":
+    print("color.py is not meant to be run directly unless for testing.")
