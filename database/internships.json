@@ -237,6 +237,23 @@
         "verified": false
     },
     {
+        "company": "Andersen Corporation",
+        "icon": "https://logo.clearbit.com/andersenwindows.com",
+        "title": "Software Engineer",
+        "yr": "2024",
+        "loc": "Minneapolis, MN",
+        "monthlySalary": 4507,
+        "hourlySalary": 26,
+        "moreInfo": "$2,000 Relocation",
+        "tags": "",
+        "link": "https://careers.andersencorp.com/en_US/careers/SearchJobs/intern?listFilterMode=1&jobRecordsPerPage=12&",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": false,
+        "educationLevel": "",
+        "verified": false
+    },
+    {
         "company": "Anyscale",
         "icon": "https://logo.clearbit.com/anyscale.com",
         "title": "Software Engineer",
@@ -898,11 +915,13 @@
         "monthlySalary": 10583,
         "hourlySalary": 61.05,
         "moreInfo": "Corporate housing or $3,000 post-tax lump sum",
+        "tags": "",
+        "link": "",
         "covidAffect": false,
         "season": "Summer",
         "appNotOpen": false,
         "educationLevel": "Undergrad (Sophomore)",
-        "verified": false
+        "verified": true
     },
     {
         "company": "Capital One",
@@ -1545,7 +1564,7 @@
         "season": "Summer",
         "appNotOpen": false,
         "educationLevel": "",
-        "verified": false
+        "verified": true
     },
     {
         "company": "DoorDash",
@@ -1578,6 +1597,21 @@
         "verified": false
     },
     {
+        "company": "DoorDash",
+        "icon": "https://logo.clearbit.com/DoorDash.com",
+        "title": "Software Engineer",
+        "yr": "2024",
+        "loc": "New York City, NY",
+        "monthlySalary": 9533,
+        "hourlySalary": 55,
+        "moreInfo": "$2,000 / mo housing, $266 transportation",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": false,
+        "educationLevel": "Undergrad (Junior)",
+        "verified": false
+    },
+    {
         "company": "DraftKings",
         "icon": "https://logo.clearbit.com/DraftKings.com",
         "title": "Software Engineer",
@@ -1592,7 +1626,7 @@
         "season": "Summer",
         "appNotOpen": false,
         "educationLevel": "Undergrad (Junior)",
-        "verified": false
+        "verified": true
     },
     {
         "company": "Dropbox",
@@ -1617,8 +1651,8 @@
         "title": "Software Engineer",
         "yr": "2024",
         "loc": "Chicago, IL",
-        "monthlySalary": 14583,
-        "hourlySalary": 84.13,
+        "monthlySalary": 15799,
+        "hourlySalary": 91.15,
         "moreInfo": "Corporate housing, $25,000 sign-on bonus",
         "tags": "Quantitative Researcher",
         "link": "https://drw.com/work-at-drw/listings/quantitative-research-intern-2566198",
@@ -1676,6 +1710,23 @@
         "season": "Summer",
         "appNotOpen": false,
         "educationLevel": "",
+        "verified": false
+    },
+    {
+        "company": "Ecolab",
+        "icon": "https://logo.clearbit.com/ecolab.com",
+        "title": "Software Engineer",
+        "yr": "2024",
+        "loc": "Naperville, IL",
+        "monthlySalary": 4333,
+        "hourlySalary": 25,
+        "moreInfo": "$1,600 / mo housing",
+        "tags": "",
+        "link": "https://jobs.ecolab.com/job-search-results/?keyword=intern",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": false,
+        "educationLevel": "Undergrad (Sophomore)",
         "verified": false
     },
     {
@@ -1770,6 +1821,23 @@
         "season": "Summer",
         "appNotOpen": false,
         "educationLevel": "",
+        "verified": false
+    },
+    {
+        "company": "EOG Resources",
+        "icon": "https://logo.clearbit.com/EOGResources.com",
+        "title": "Software Engineer",
+        "yr": "2024",
+        "loc": "Houston, TX",
+        "monthlySalary": 7973,
+        "hourlySalary": 46,
+        "moreInfo": "$2,166 / mo housing",
+        "tags": "",
+        "link": "https://careers.eogresources.com/process_jobsearch.asp?jobTitle=intern&cityZip=&proximity=",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": true,
+        "educationLevel": "Undergrad (Junior)",
         "verified": false
     },
     {
@@ -1881,7 +1949,7 @@
         "season": "Summer",
         "appNotOpen": false,
         "educationLevel": "Undergrad (Junior)",
-        "verified": false
+        "verified": true
     },
     {
         "company": "Federal Reserve",
@@ -2140,11 +2208,13 @@
         "monthlySalary": 5200,
         "hourlySalary": 30,
         "moreInfo": "$1,833 / mo housing, vehicle discount",
+        "tags": "",
+        "link": "",
         "covidAffect": false,
         "season": "Summer",
         "appNotOpen": false,
         "educationLevel": "Undergrad (Junior)",
-        "verified": false
+        "verified": true
     },
     {
         "company": "GlobalFoundries",
@@ -2259,6 +2329,23 @@
         "verified": false
     },
     {
+        "company": "Google STEP",
+        "icon": "https://logo.clearbit.com/Google.com",
+        "title": "Software Engineer",
+        "yr": "2024",
+        "loc": "Mountain View, CA",
+        "monthlySalary": 6583,
+        "hourlySalary": 37.98,
+        "moreInfo": "$7,000 Housing",
+        "tags": "",
+        "link": "https://www.google.com/about/careers/applications/jobs/results/124653568759079622-step-intern-secondyear-student-summer-2024?company=Google&company=YouTube&distance=50&employment_type=FULL_TIME&employment_type=INTERN&employment_type=PART_TIME&employment_type=TEMPORARY&jex=ENTRY_LEVEL&q=summer%20step",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": false,
+        "educationLevel": "",
+        "verified": false
+    },
+    {
         "company": "Grainger",
         "icon": "https://logo.clearbit.com/Grainger.com",
         "title": "Data Scientist",
@@ -2305,6 +2392,23 @@
         "season": "Summer",
         "appNotOpen": false,
         "educationLevel": "",
+        "verified": false
+    },
+    {
+        "company": "Halliburton",
+        "icon": "https://logo.clearbit.com/Halliburton.com",
+        "title": "Software Engineer",
+        "yr": "2024",
+        "loc": "Houston, TX",
+        "monthlySalary": 4680,
+        "hourlySalary": 27,
+        "moreInfo": "Corporate housing, company provided relocation",
+        "tags": "",
+        "link": "https://jobs.halliburton.com/search/?q=&q2=&alertId=&locationsearch=&title=intern&location=&date=",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": true,
+        "educationLevel": "Undergrad (Junior)",
         "verified": false
     },
     {
@@ -2399,6 +2503,21 @@
         "season": "Summer",
         "appNotOpen": true,
         "educationLevel": "Undergrad (Junior)",
+        "verified": false
+    },
+    {
+        "company": "Howmet Aerospace",
+        "icon": "https://logo.clearbit.com/HowmetAerospace.com",
+        "title": "Mechanical Engineer",
+        "yr": "2024",
+        "loc": "Hampton, VA",
+        "moreInfo": "",
+        "tags": "",
+        "link": "https://fa-exty-saasfaprod1.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/106545/?keyword=intern&mode=location",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": false,
+        "educationLevel": "",
         "verified": false
     },
     {
@@ -2566,6 +2685,23 @@
         "verified": false
     },
     {
+        "company": "Infoverity",
+        "icon": "https://logo.clearbit.com/infoverity.com",
+        "title": "Data Engineer",
+        "yr": "2024",
+        "loc": "Dublin, OH",
+        "monthlySalary": 3467,
+        "hourlySalary": 20,
+        "moreInfo": "",
+        "tags": "",
+        "link": "https://infoverity.zohorecruit.com/jobs/Infoverity-USA-Careers/530797000006827069/Summer-Internship-summer-2024-?source=CareerSite",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": false,
+        "educationLevel": "",
+        "verified": true
+    },
+    {
         "company": "Intact Financial Corporation",
         "icon": "https://logo.clearbit.com/http:/www.intactfc.com/",
         "title": "Software Engineer",
@@ -2683,14 +2819,16 @@
         "icon": "https://logo.clearbit.com/https:/www.deere.com",
         "title": "Software Engineer",
         "yr": "2024",
-        "loc": "Moline, IL",
-        "moreInfo": "",
+        "loc": "Urbandale, IA",
+        "monthlySalary": 5644,
+        "hourlySalary": 32.56,
+        "moreInfo": "$450 / mo housing, relocation expenses reimbursed",
         "tags": "",
         "link": "https://careers.deere.com/careers?query=internship&pid=137456548197&domain=johndeere.com&sort_by=relevance",
         "covidAffect": false,
         "season": "Summer",
         "appNotOpen": false,
-        "educationLevel": "",
+        "educationLevel": "Undergrad (Junior)",
         "verified": false
     },
     {
@@ -2740,7 +2878,7 @@
         "season": "Summer",
         "appNotOpen": false,
         "educationLevel": "Undergrad (Junior)",
-        "verified": false
+        "verified": true
     },
     {
         "company": "JPMorgan Chase",
@@ -2913,6 +3051,20 @@
         "verified": true
     },
     {
+        "company": "KPMG",
+        "icon": "https://logo.clearbit.com/KPMG.com",
+        "title": "Software Engineer",
+        "yr": "2024",
+        "loc": "Denver, CO",
+        "monthlySalary": 7126,
+        "hourlySalary": 41.11,
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": false,
+        "educationLevel": "Undergrad (Junior)",
+        "verified": false
+    },
+    {
         "company": "Lazard",
         "icon": "https://logo.clearbit.com/Lazard.com",
         "title": "Business Analyst",
@@ -2947,6 +3099,40 @@
         "verified": false
     },
     {
+        "company": "Liberty Mutual",
+        "icon": "https://logo.clearbit.com/LibertyMutual.com",
+        "title": "Software Engineer",
+        "yr": "2024",
+        "loc": "Portsmouth, NH",
+        "monthlySalary": 5200,
+        "hourlySalary": 30,
+        "moreInfo": "$3,000 Relocation",
+        "tags": "",
+        "link": "https://jobs.libertymutualgroup.com/search-jobs/?keyword=2022&level=Campus",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": false,
+        "educationLevel": "Undergrad (Junior)",
+        "verified": false
+    },
+    {
+        "company": "Liberty Mutual",
+        "icon": "https://logo.clearbit.com/LibertyMutual.com",
+        "title": "Data Analyst",
+        "yr": "2024",
+        "loc": "Boston, MA",
+        "monthlySalary": 4247,
+        "hourlySalary": 24.5,
+        "moreInfo": "",
+        "tags": "",
+        "link": "https://searchjobs.libertymutualgroup.com/careers?query=intern&pid=618493527195&domain=libertymutual.com&sort_by=relevance&triggerGoButton=false",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": false,
+        "educationLevel": "",
+        "verified": false
+    },
+    {
         "company": "LinkedIn",
         "icon": "https://i.imgur.com/PI4nBLw.png",
         "title": "Software Engineer",
@@ -2961,7 +3147,7 @@
         "season": "Summer",
         "appNotOpen": true,
         "educationLevel": "Undergrad (Junior)",
-        "verified": false
+        "verified": true
     },
     {
         "company": "L'Oreal",
@@ -3180,14 +3366,16 @@
         "title": "Software Engineer",
         "yr": "2024",
         "loc": "Redmond, WA",
-        "monthlySalary": 8389,
+        "monthlySalary": 7890,
         "hourlySalary": 48.4,
         "moreInfo": "$3,333 / mo housing, $1,200 transportation, $7,000 relocation, $5,000 return intern bonus",
+        "tags": "",
+        "link": "",
         "covidAffect": false,
         "season": "Summer",
         "appNotOpen": false,
         "educationLevel": "Undergrad (Junior)",
-        "verified": false
+        "verified": true
     },
     {
         "company": "Microsoft",
@@ -3243,14 +3431,16 @@
         "icon": "https://logo.clearbit.com/MongoDB.com",
         "title": "Software Engineer",
         "yr": "2024",
-        "loc": "Sydney, Australia",
-        "moreInfo": "",
+        "loc": "New York City, NY",
+        "monthlySalary": 9013,
+        "hourlySalary": 52,
+        "moreInfo": "$2,500 / mo housing, $1,200 relocation",
         "tags": "",
         "link": "https://www.mongodb.com/careers/jobs/4900421",
         "covidAffect": false,
         "season": "Summer",
         "appNotOpen": false,
-        "educationLevel": "",
+        "educationLevel": "Undergrad (Junior)",
         "verified": false
     },
     {
@@ -3743,6 +3933,57 @@
         "verified": false
     },
     {
+        "company": "Peraton",
+        "icon": "https://logo.clearbit.com/PeratonLabs.com",
+        "title": "Software Engineer",
+        "yr": "2024",
+        "loc": "Topeka, KS",
+        "monthlySalary": 4160,
+        "hourlySalary": 24,
+        "moreInfo": "",
+        "tags": "",
+        "link": "https://careers-peraton.icims.com/jobs/138543/summer-2024-computer-engineering-intern--topeka%2c-ks/job",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": false,
+        "educationLevel": "",
+        "verified": false
+    },
+    {
+        "company": "Peraton",
+        "icon": "https://logo.clearbit.com/PeratonLabs.com",
+        "title": "Mechanical Engineer",
+        "yr": "2024",
+        "loc": "Topeka, KS",
+        "monthlySalary": 4160,
+        "hourlySalary": 24,
+        "moreInfo": "",
+        "tags": "",
+        "link": "https://careers-peraton.icims.com/jobs/138516/summer-2024-mechanical-engineering-intern--topeka%2c-ks/job",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": false,
+        "educationLevel": "",
+        "verified": false
+    },
+    {
+        "company": "Peraton",
+        "icon": "https://logo.clearbit.com/PeratonLabs.com",
+        "title": "Product Designer",
+        "yr": "2024",
+        "loc": "Bethesda, MD",
+        "monthlySalary": 5200,
+        "hourlySalary": 30,
+        "moreInfo": "",
+        "tags": "",
+        "link": "https://careers-peraton.icims.com/jobs/138692/summer-2024-graphics-designer-intern/job",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": false,
+        "educationLevel": "",
+        "verified": false
+    },
+    {
         "company": "Pimco",
         "icon": "https://logo.clearbit.com/https:/careers.pimco.com/",
         "title": "Software Engineer",
@@ -3863,6 +4104,23 @@
         "covidAffect": false,
         "season": "Summer",
         "appNotOpen": false,
+        "educationLevel": "Undergrad (Junior)",
+        "verified": false
+    },
+    {
+        "company": "Progressive",
+        "icon": "https://logo.clearbit.com/Progressive.com",
+        "title": "Software Engineer",
+        "yr": "2024",
+        "loc": "Cleveland, OH",
+        "monthlySalary": 4247,
+        "hourlySalary": 24.5,
+        "moreInfo": "Hyrbrid",
+        "tags": "",
+        "link": "https://progressive.taleo.net/careersection/2/jobsearch.ftl?lang=en",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": true,
         "educationLevel": "Undergrad (Junior)",
         "verified": false
     },
@@ -4098,6 +4356,23 @@
         "verified": false
     },
     {
+        "company": "Rocket Companies",
+        "icon": "https://logo.clearbit.com/http:/www.rocketcompanies.com/",
+        "title": "Software Engineer",
+        "yr": "2024",
+        "loc": "Detroit, MI",
+        "monthlySalary": 3380,
+        "hourlySalary": 19.5,
+        "moreInfo": "Corporate housing",
+        "tags": "",
+        "link": "https://www.myrocketcareer.com/listjobs/?keyword=intern",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": false,
+        "educationLevel": "Undergrad (Sophomore)",
+        "verified": false
+    },
+    {
         "company": "Rocket Lab",
         "icon": "https://logo.clearbit.com/rocketlabusa.com",
         "title": "Software Engineer",
@@ -4129,7 +4404,7 @@
         "season": "Summer",
         "appNotOpen": false,
         "educationLevel": "Undergrad (Junior)",
-        "verified": false
+        "verified": true
     },
     {
         "company": "Rockwell Automation",
@@ -4687,6 +4962,23 @@
         "verified": false
     },
     {
+        "company": "Target",
+        "icon": "https://logo.clearbit.com/Target.com",
+        "title": "Software Engineer",
+        "yr": "2024",
+        "loc": "Minneapolis, MN",
+        "monthlySalary": 5893,
+        "hourlySalary": 34,
+        "moreInfo": "Corporate housing, hybrid at Target HQ. 10% Target Discount",
+        "tags": "",
+        "link": "https://jobs.target.com/job/brooklyn-park/software-engineering-intern-hybrid-starting-june-2023/1118/34525104848",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": false,
+        "educationLevel": "Undergrad (Senior)",
+        "verified": false
+    },
+    {
         "company": "Teledyne Technologies",
         "icon": "https://logo.clearbit.com/Teledyne.com",
         "title": "Software Engineer",
@@ -5174,7 +5466,7 @@
         "season": "Summer",
         "appNotOpen": false,
         "educationLevel": "Undergrad (Senior)",
-        "verified": false
+        "verified": true
     },
     {
         "company": "Verizon",
@@ -5214,9 +5506,9 @@
         "title": "Software Engineer",
         "yr": "2024",
         "loc": "San Mateo, CA",
-        "monthlySalary": 8667,
-        "hourlySalary": 50,
-        "moreInfo": "",
+        "monthlySalary": 9533,
+        "hourlySalary": 55,
+        "moreInfo": "$2,000 / mo housing",
         "tags": "",
         "link": "https://jobs.lever.co/verkada/880f563d-3fff-4aff-b6f2-2aab0510ebf4?utm_source=CarbosJobs",
         "covidAffect": false,
@@ -5472,7 +5764,7 @@
         "loc": "San Francisco, CA",
         "monthlySalary": 10400,
         "hourlySalary": 60,
-        "moreInfo": "$2,500 / mo housing",
+        "moreInfo": "$2,500 housing",
         "tags": "",
         "link": "https://www.wellsfargojobs.com/en/jobs/?search=intern&pagesize=20#results",
         "covidAffect": false,
@@ -5549,7 +5841,7 @@
         "loc": "Dallas, TX",
         "monthlySalary": 8334,
         "hourlySalary": 48.08,
-        "moreInfo": "$2,500 / mo housing, company provided relocation",
+        "moreInfo": "$2,500  housing, company provided relocation",
         "covidAffect": false,
         "season": "Summer",
         "appNotOpen": false,
@@ -5601,6 +5893,40 @@
         "season": "Summer",
         "appNotOpen": false,
         "educationLevel": "Undergrad (Junior)",
+        "verified": false
+    },
+    {
+        "company": "Workiva",
+        "icon": "https://logo.clearbit.com/Workiva.com",
+        "title": "Software Engineer",
+        "yr": "2024",
+        "loc": "Ames, IA",
+        "monthlySalary": 6933,
+        "hourlySalary": 40,
+        "moreInfo": "$2,000 sign-on bonus",
+        "tags": "",
+        "link": "https://workiva.wd1.myworkdayjobs.com/careers/0/refreshFacet/318c8bb6f553100021d223d9780d30be",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": true,
+        "educationLevel": "Undergrad (Senior)",
+        "verified": false
+    },
+    {
+        "company": "Workiva",
+        "icon": "https://logo.clearbit.com/Workiva.com",
+        "title": "Product Manager",
+        "yr": "2024",
+        "loc": "Remote US",
+        "monthlySalary": 9533,
+        "hourlySalary": 55,
+        "moreInfo": "",
+        "tags": "",
+        "link": "https://workiva.wd1.myworkdayjobs.com/en-US/careers/job/USA---Remote/XMLNAME-2024-Summer----MBA--Product-Management-Intern_R7455",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": false,
+        "educationLevel": "",
         "verified": false
     },
     {
