@@ -5,13 +5,11 @@ import json
 import discord
 from discord import app_commands
 from dotenv import load_dotenv
-import colorama
 
 from color import calc_avg_color
 import internship as its
 
 
-colorama.init()
 its.update()
 load_dotenv()
 
