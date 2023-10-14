@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
-import json
 
+import json
 import discord
 from discord import app_commands
 from dotenv import load_dotenv
@@ -58,6 +58,7 @@ async def get_internship(interact, index: int):
     embed = discord.Embed(title=f"Internship #{index}",
                           colour=discord.Colour(int(calc_avg_color(internships_data[index]['icon']).lstrip('#'), 16)),
                           url=its.check_for_key(internships_data[index], 'link'))
+                          
 
     embed.set_thumbnail(url=its.check_for_key(internships_data[index], 'icon'))
     embed.add_field(name="Company", value=its.check_for_key(internships_data[index], 'company'))
