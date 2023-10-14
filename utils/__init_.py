@@ -1,1 +1,1 @@
-__all__ = ['color', 'internship']
+__all__ = ['color', 'internship', 'embed_colors']

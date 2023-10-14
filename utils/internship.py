@@ -1,7 +1,6 @@
 import json
 import requests
 
-
 def check_for_key(internship, key):
     try:
         return internship[key] if internship[key] != "" else "Not Available"
