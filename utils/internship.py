@@ -21,7 +21,7 @@ def update():
     filtered_internships = [yr for yr in internships if yr['yr'] == '2024']
     filtered_internships = [seasons for seasons in filtered_internships if seasons['season'] == 'Summer']
 
-    with open('../database/internships.json', 'w') as f:
+    with open('database/internships.json', 'w') as f:
         json.dump(filtered_internships, f, indent=4)
         f.close()
 
