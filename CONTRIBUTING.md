@@ -50,7 +50,7 @@ Make sure your branch name (BranchNameHere) is descriptive and unique.
 In VS Code you can use the version control GUI on the left hand side to create a new branch. If you are new to VS Code this [YouTube Video will help you get started.](https://www.geeksforgeeks.org/how-to-clone-a-project-from-github-using-vscode/) 
 
 ### Commit Messages
-Commit messages can be thought of as snapshots or saved states. Making a commit will save a copy fo the current state of your project folder.
+Commit messages can be thought of as snapshots or saved states. Making a commit will save a copy of the current state of your project folder.
 
 ```bash
 git commit -m "commit message"
