@@ -163,5 +163,5 @@ cython_debug/
 #.idea/
 
 # Additional
-bot/tempCodeRunnerFile.py
+tempCodeRunnerFile.py
 internships.json

@@ -6,8 +6,9 @@ import discord
 from discord import app_commands
 from dotenv import load_dotenv
 
-from color import calc_avg_color
-import internship as its
+from utils import internship as its 
+from utils.color import calc_avg_color
+
 
 
 its.update()
@@ -19,7 +20,7 @@ GUILD_ID = os.getenv('BOT_GUILD_ID')
 MY_GUILD = discord.Object(id=GUILD_ID)
 
 
-with open('../database/internships.json', 'r') as f:
+with open('database/internships.json', 'r') as f:
     internships_data = json.load(f)
     f.close()
 
@@ -66,8 +67,6 @@ async def get_internship(interact, index: int):
     embed.add_field(name="Location", value=its.check_for_key(internships_data[index], 'loc'))
     embed.add_field(name="Salary", value=f"${its.check_for_key(internships_data[index],'monthlySalary'):.2f}/mo\n${its.check_for_key(internships_data[index],'hourlySalary'):.2f}/hr")
     
-
-    #buttons
     url_view = discord.ui.View() 
     url_view.add_item(discord.ui.Button(label='Apply', style=discord.ButtonStyle.url, url=its.check_for_key(internships_data[index], 'link')))
     url_view.add_item(discord.ui.Button(label='Test', style=discord.ButtonStyle.green))
