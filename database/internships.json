@@ -47,6 +47,23 @@
         "verified": false
     },
     {
+        "company": "ADP",
+        "icon": "https://logo.clearbit.com/ADP.com",
+        "title": "Software Engineer",
+        "yr": "2024",
+        "loc": "Alpharetta, GA",
+        "monthlySalary": 5027,
+        "hourlySalary": 29,
+        "moreInfo": "",
+        "tags": "",
+        "link": "https://jobs.adp.com/job-search-results/?category[]=Intern%2FCo-Op&language=en&location=United%20States&country=US&radius=200",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": false,
+        "educationLevel": "Undergrad (Junior)",
+        "verified": false
+    },
+    {
         "company": "Akuna Capital",
         "icon": "https://logo.clearbit.com/AkunaCapital.com",
         "title": "Software Engineer",
@@ -450,6 +467,21 @@
         "season": "Summer",
         "appNotOpen": false,
         "educationLevel": "Undergrad (Sophomore)",
+        "verified": false
+    },
+    {
+        "company": "Atlassian",
+        "icon": "https://logo.clearbit.com/Atlassian.com",
+        "title": "Software Engineer",
+        "yr": "2024",
+        "loc": "New York City, NY",
+        "monthlySalary": 8493,
+        "hourlySalary": 49,
+        "moreInfo": "$3,000 lumpsum housing.",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": false,
+        "educationLevel": "Undergrad (Senior)",
         "verified": false
     },
     {
@@ -1894,14 +1926,16 @@
         "icon": "https://logo.clearbit.com/EpicSystems.com",
         "title": "Software Engineer",
         "yr": "2024",
-        "loc": "Madison, WI",
-        "moreInfo": "",
+        "loc": "Verona, WI",
+        "monthlySalary": 7280,
+        "hourlySalary": 42,
+        "moreInfo": "$900 / mo housing, $1,000 relocation",
         "tags": "",
         "link": "https://epic.avature.net/Careers/FolderDetail/Software-Developer-Intern---Summer-2024/23429",
         "covidAffect": false,
         "season": "Summer",
         "appNotOpen": false,
-        "educationLevel": "",
+        "educationLevel": "Undergrad (Junior)",
         "verified": false
     },
     {
@@ -2870,8 +2904,8 @@
         "title": "Software Engineer",
         "yr": "2024",
         "loc": "Urbandale, IA",
-        "monthlySalary": 5644,
-        "hourlySalary": 32.56,
+        "monthlySalary": 5210,
+        "hourlySalary": 30.06,
         "moreInfo": "$450 / mo housing, relocation expenses reimbursed",
         "tags": "",
         "link": "https://careers.deere.com/careers?query=internship&pid=137456548197&domain=johndeere.com&sort_by=relevance",
@@ -2879,7 +2913,7 @@
         "season": "Summer",
         "appNotOpen": false,
         "educationLevel": "Undergrad (Junior)",
-        "verified": false
+        "verified": true
     },
     {
         "company": "John Deere",
@@ -3020,6 +3054,23 @@
         "verified": false
     },
     {
+        "company": "Kensho",
+        "icon": "https://logo.clearbit.com/Kensho.com",
+        "title": "Software Engineer",
+        "yr": "2024",
+        "loc": "New York City, NY",
+        "monthlySalary": 12133,
+        "hourlySalary": 70,
+        "moreInfo": "",
+        "tags": "",
+        "link": "https://kensho.com/careers#available-positions",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": true,
+        "educationLevel": "",
+        "verified": false
+    },
+    {
         "company": "KLA",
         "icon": "https://logo.clearbit.com/KLA.com",
         "title": "Software Engineer",
@@ -3065,6 +3116,23 @@
         "covidAffect": false,
         "season": "Summer",
         "appNotOpen": false,
+        "educationLevel": "Undergrad (Junior)",
+        "verified": false
+    },
+    {
+        "company": "Kohl's",
+        "icon": "https://logo.clearbit.com/Kohls.com",
+        "title": "Software Engineer",
+        "yr": "2024",
+        "loc": "San Ramon, CA",
+        "monthlySalary": 6067,
+        "hourlySalary": 35,
+        "moreInfo": "Corporate housing, company provided transportation",
+        "tags": "Site Reliability Engineer",
+        "link": "https://careers.kohls.com/internships/technology-digital",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": true,
         "educationLevel": "Undergrad (Junior)",
         "verified": false
     },
@@ -3465,8 +3533,8 @@
         "title": "Technical Program Manager",
         "yr": "2024",
         "loc": "Redmond, WA",
-        "monthlySalary": 8389,
-        "hourlySalary": 48.4,
+        "monthlySalary": 7890,
+        "hourlySalary": 45.52,
         "moreInfo": "$3,333 / mo housing, $400 transportation, company provided relocation, $5,000 sign-on bonus",
         "tags": "",
         "link": "https://careers.microsoft.com/students/us/en/search-results?keywords=technical%20program%20manager%20intern",
@@ -3474,7 +3542,7 @@
         "season": "Summer",
         "appNotOpen": false,
         "educationLevel": "Undergrad (Junior)",
-        "verified": false
+        "verified": true
     },
     {
         "company": "MongoDB",
@@ -3775,6 +3843,23 @@
         "verified": false
     },
     {
+        "company": "Nucor",
+        "icon": "https://logo.clearbit.com/Nucor.com",
+        "title": "Software Engineer",
+        "yr": "2024",
+        "loc": "Crawfordsville, IN",
+        "monthlySalary": 4801,
+        "hourlySalary": 27.7,
+        "moreInfo": "Corporate housing",
+        "tags": "",
+        "link": "https://jobs.nucor.com/Nucor_External/search/?searchby=location&createNewAlert=false&q=intern&locationsearch=&geolocation=&optionsFacetsDD_facility=&optionsFacetsDD_department=",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": false,
+        "educationLevel": "",
+        "verified": false
+    },
+    {
         "company": "Nutanix",
         "icon": "https://logo.clearbit.com/nutanix.com",
         "title": "Software Engineer",
@@ -3922,8 +4007,8 @@
         "title": "Software Engineer",
         "yr": "2024",
         "loc": "New York City, NY",
-        "monthlySalary": 10100,
-        "hourlySalary": 58.27,
+        "monthlySalary": 9800,
+        "hourlySalary": 56.54,
         "moreInfo": "$2,500 / mo housing, flights covered",
         "tags": "",
         "link": "https://www.palantir.com/careers/students/path/",
@@ -3931,7 +4016,7 @@
         "season": "Summer",
         "appNotOpen": false,
         "educationLevel": "Undergrad (Junior)",
-        "verified": false
+        "verified": true
     },
     {
         "company": "Panasonic",
@@ -3980,6 +4065,23 @@
         "season": "Summer",
         "appNotOpen": false,
         "educationLevel": "",
+        "verified": false
+    },
+    {
+        "company": "Perella Weinberg Partners",
+        "icon": "https://logo.clearbit.com/pwpartners.com",
+        "title": "Business Analyst",
+        "yr": "2024",
+        "loc": "New York City, NY",
+        "monthlySalary": 9166,
+        "hourlySalary": 52.88,
+        "moreInfo": "$10,000 sign-on bonus",
+        "tags": "",
+        "link": "https://pwpcareers.tal.net/vx/lang-en-GB/mobile-0/appcentre-pwpext/brand-4/xf-3692fcc9b38d/candidate/jobboard/vacancy/2/adv/?ftq=intern",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": true,
+        "educationLevel": "Undergrad (Junior)",
         "verified": false
     },
     {
@@ -4585,6 +4687,21 @@
     },
     {
         "company": "Salesforce",
+        "icon": "https://logo.clearbit.com/Salesforce.com",
+        "title": "Product Manager",
+        "yr": "2024",
+        "loc": "Dallas, TX",
+        "monthlySalary": 6933,
+        "hourlySalary": 40,
+        "moreInfo": "100 / mo wellness",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": false,
+        "educationLevel": "Undergrad (Junior)",
+        "verified": false
+    },
+    {
+        "company": "Salesforce",
         "icon": "https://i.imgur.com/TE0OfPL.png",
         "title": "Data Scientist",
         "yr": "2024",
@@ -4806,6 +4923,23 @@
         "verified": false
     },
     {
+        "company": "Skydio",
+        "icon": "https://logo.clearbit.com/Skydio.com",
+        "title": "Software Engineer",
+        "yr": "2024",
+        "loc": "San Mateo, CA",
+        "monthlySalary": 10053,
+        "hourlySalary": 58,
+        "moreInfo": "",
+        "tags": "",
+        "link": "https://boards.greenhouse.io/skydio/jobs/5738857003",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": false,
+        "educationLevel": "",
+        "verified": false
+    },
+    {
         "company": "Slack",
         "icon": "https://logo.clearbit.com/slack.com",
         "title": "Software Engineer",
@@ -4869,18 +5003,37 @@
         "verified": false
     },
     {
+        "company": "State Farm",
+        "icon": "https://logo.clearbit.com/StateFarm.com",
+        "title": "Software Engineer",
+        "yr": "2024",
+        "loc": "Miami, FL",
+        "monthlySalary": 4853,
+        "hourlySalary": 28,
+        "moreInfo": "$2,000 / mo housing",
+        "tags": "",
+        "link": "https://jobs.statefarm.com/main/jobs?keywords=intern&sortBy=relevance&page=1",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": false,
+        "educationLevel": "Undergrad (Sophomore)",
+        "verified": false
+    },
+    {
         "company": "Stellantis",
         "icon": "https://logo.clearbit.com/Stellantis.com",
         "title": "Software Engineer",
         "yr": "2024",
-        "loc": "Auburn Hills, MI",
-        "moreInfo": "",
+        "loc": "Remote",
+        "monthlySalary": 4333,
+        "hourlySalary": 25,
+        "moreInfo": "Company Provided Relocation",
         "tags": "",
         "link": "https://careers.stellantis.com/job/19059503/engineering-intern-summer-2024/",
         "covidAffect": false,
         "season": "Summer",
         "appNotOpen": false,
-        "educationLevel": "",
+        "educationLevel": "Undergrad (Sophomore)",
         "verified": false
     },
     {
@@ -5960,20 +6113,22 @@
         "season": "Summer",
         "appNotOpen": true,
         "educationLevel": "Undergrad (Junior)",
-        "verified": false
+        "verified": true
     },
     {
         "company": "Workiva",
         "icon": "https://logo.clearbit.com/Workiva.com",
         "title": "Software Engineer",
         "yr": "2024",
-        "loc": "Ames, IA",
-        "monthlySalary": 6933,
-        "hourlySalary": 40,
+        "loc": "Remote",
+        "monthlySalary": 7973,
+        "hourlySalary": 46,
         "moreInfo": "$2,000 sign-on bonus",
+        "tags": "",
+        "link": "https://workiva.wd1.myworkdayjobs.com/careers/0/refreshFacet/318c8bb6f553100021d223d9780d30be",
         "covidAffect": false,
         "season": "Summer",
-        "appNotOpen": false,
+        "appNotOpen": true,
         "educationLevel": "Undergrad (Senior)",
         "verified": false
     },
