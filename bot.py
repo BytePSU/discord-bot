@@ -2,9 +2,9 @@ import os
 from datetime import datetime
 import traceback
 
-import json
 import discord
 from discord import app_commands
+from discord.ext import tasks
 from dotenv import load_dotenv
 
 from utils import internship as its 
@@ -15,9 +15,6 @@ load_dotenv()
 TOKEN = os.getenv('BOT_TOKEN')
 GUILD_ID = os.getenv('BOT_GUILD_ID')
 MY_GUILD = discord.Object(id=GUILD_ID)
-
-
-#its.update_file()
 
 
 class Bot(discord.Client):  
@@ -42,40 +39,54 @@ async def on_ready():
     print(f'{client.user} is online and running! ({datetime.now()})')
     print('------')
 
+    update.start()
+
 
 @client.tree.command(name="internship")
 async def get_internship(interact, index: int):
     try:
-        if index > len(client.internships_data) or index < 0:
+        if index > len(client.internships_data) - 1 or index < 0:
             await interact.response.send_message(f"Internship #{index} does not exist. Try again.")
             return
 
-        embed = discord.Embed(title=f"Internship #{index} - {its.check_for_key(client.internships_data[index], 'company')}",
-                            colour=discord.Colour(int(calc_avg_color(client.internships_data[index]['icon']).lstrip('#'), 16)),
-                            url=its.check_for_key(client.internships_data[index], 'link'))
-                            
-
-        embed.set_thumbnail(url=its.check_for_key(client.internships_data[index], 'icon'))
-        embed.add_field(name="Company", value=its.check_for_key(client.internships_data[index], 'company'))
-        embed.add_field(name="Job Title", value=its.check_for_key(client.internships_data[index], 'title'))
-        embed.add_field(name="Required Education", value=its.check_for_key(client.internships_data[index], 'educationLevel'))
-        embed.add_field(name="Year", value=f"{its.check_for_key(client.internships_data[index],'season')} {its.check_for_key(client.internships_data[index],'yr')}")
-        embed.add_field(name="Location", value=its.check_for_key(client.internships_data[index], 'loc'))
-        embed.add_field(name="Salary", value=f"${its.check_for_key(client.internships_data[index],'monthlySalary')}/mo\n${its.check_for_key(client.internships_data[index],'hourlySalary')}/hr")
+        embed, url_view = create_internship_embed(index)
         
-        url_view = discord.ui.View() 
-        url_view.add_item(discord.ui.Button(label='Apply', style=discord.ButtonStyle.url, url=its.check_for_key(client.internships_data[index], 'link')))
-        url_view.add_item(discord.ui.Button(label='Test', style=discord.ButtonStyle.green))
         await interact.response.send_message(embed=embed, view=url_view)
     except Exception as e:
         await interact.response.send_message(f"An exception has occured. Please refer to the traceback below and blame someone.\n```{traceback.format_exc()}```")
         return
     
 
-@client.tree.command(name="update")
-async def update(interact):
+def create_internship_embed(index: int):
+    if index > len(client.internships_data) - 1 or index < 0:
+        index = 0
+
+
+    embed = discord.Embed(title=f"Internship #{index} - {its.check_for_key(client.internships_data[index], 'company')}",
+                            colour=discord.Colour(int(calc_avg_color(client.internships_data[index]['icon']).lstrip('#'), 16)),
+                            url=its.check_for_key(client.internships_data[index], 'link'))
+                            
+
+    embed.set_thumbnail(url=its.check_for_key(client.internships_data[index], 'icon'))
+    embed.add_field(name="Company", value=its.check_for_key(client.internships_data[index], 'company'))
+    embed.add_field(name="Job Title", value=its.check_for_key(client.internships_data[index], 'title'))
+    embed.add_field(name="Required Education", value=its.check_for_key(client.internships_data[index], 'educationLevel'))
+    embed.add_field(name="Year", value=f"{its.check_for_key(client.internships_data[index],'season')} {its.check_for_key(client.internships_data[index],'yr')}")
+    embed.add_field(name="Location", value=its.check_for_key(client.internships_data[index], 'loc'))
+    embed.add_field(name="Salary", value=f"${its.check_for_key(client.internships_data[index],'monthlySalary')}/mo\n${its.check_for_key(client.internships_data[index],'hourlySalary')}/hr")
+    
+    url_view = discord.ui.View() 
+    url_view.add_item(discord.ui.Button(label='Apply', style=discord.ButtonStyle.url, url=its.check_for_key(client.internships_data[index], 'link')))
+    url_view.add_item(discord.ui.Button(label='Test', style=discord.ButtonStyle.green))
+
+    return embed, url_view
+    
+
+@tasks.loop(seconds=15.0)
+async def update():
+    channel_to_post = client.get_channel(1160282313859530854)
+    
     try:
-        message = ""
         changes = its.check_for_update()
 
         if changes["changed"]:
@@ -83,25 +94,29 @@ async def update(interact):
             client.internships_data = its.open_file()
 
             if changes["amount"] > 0:
-                message += f"Update! {changes['amount']} new internships have been added!"
-            elif changes["amount"] < 0:
-                message += f"Update! {changes['amount']} internships have been removed!"
+                await channel_to_post.send(f"Update! {changes['amount']} new internship{'s' if changes['amount'] > 1 else ''} have been added! {changes['old_amount']} -> {len(client.internships_data)}")
 
-            message += f'\n\nDatabase updated! ({changes["old_amount"]} -> {len(client.internships_data)})'
-        
-            await interact.response.send_message(message)
+                for post in range(len(client.internships_data) - changes["amount"], len(client.internships_data)):
+                    embed, url_view = create_internship_embed(post)
+                    await channel_to_post.send(embed=embed, view=url_view, silent=True)
+
+            elif changes["amount"] < 0:
+                await channel_to_post.send(f"Update! {changes['amount']} internship{'s' if changes['amount'] > 1 else ''} have been removed! {changes['old_amount']} -> {len(client.internships_data)}")
+
+            await channel_to_post.send(f'\n\nDatabase updated! ({datetime.now()})')
         else:
-            await interact.response.send_message(f"Database is up to date! ({len(client.internships_data)} internships)")
+            await channel_to_post.send(f"Database is up to date! ({len(client.internships_data)} internships as of {datetime.now()})", silent=True)
 
     except Exception as e:
-        await interact.response.send_message(f"An exception has occured. Please refer to the traceback below and blame someone.\n```{traceback.format_exc()}```")
+        await channel_to_post.send(f"An exception has occured. Please refer to the traceback below and blame someone.\n```{traceback.format_exc()}```", silent=True)
         return
     
 @client.tree.command(name="test")
-async def test(interact):
+async def test1(interact):
     client.internships_data = its.open_file()
 
     await interact.response.send_message(f"json file refreshed, {len(client.internships_data)}")
+    
 
 
 

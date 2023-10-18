@@ -1135,6 +1135,23 @@
         "verified": false
     },
     {
+        "company": "Cisco",
+        "icon": "https://logo.clearbit.com/Cisco.com",
+        "title": "Software Engineer",
+        "yr": "2024",
+        "loc": "San Jose, CA",
+        "monthlySalary": 7126,
+        "hourlySalary": 41.11,
+        "moreInfo": "Corporate or $8,000 housing",
+        "tags": "",
+        "link": "https://jobs.cisco.com/jobs/ProjectDetail/Software-Engineer-I-Intern-United-States/1380727",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": false,
+        "educationLevel": "Undergrad (Sophomore)",
+        "verified": false
+    },
+    {
         "company": "Cisco Meraki",
         "icon": "https://imgur.com/hpSgi4a.png",
         "title": "Software Engineer",
@@ -1986,6 +2003,23 @@
         "verified": false
     },
     {
+        "company": "F5 Networks",
+        "icon": "https://logo.clearbit.com/F5Networks.com",
+        "title": "Software Engineer",
+        "yr": "2024",
+        "loc": "Seattle, WA",
+        "monthlySalary": 7627,
+        "hourlySalary": 44,
+        "moreInfo": "$1,666 / mo housing",
+        "tags": "",
+        "link": "https://ffive.wd5.myworkdayjobs.com/en-US/f5jobs/job/Seattle/Summer-2023-Internship---Software-Engineering_RP1026625",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": false,
+        "educationLevel": "Undergrad (Junior)",
+        "verified": false
+    },
+    {
         "company": "Fannie Mae",
         "icon": "https://logo.clearbit.com/FannieMae.com",
         "title": "Software Engineer",
@@ -2832,6 +2866,23 @@
         "season": "Summer",
         "appNotOpen": false,
         "educationLevel": "",
+        "verified": false
+    },
+    {
+        "company": "Instructure",
+        "icon": "https://logo.clearbit.com/Instructure.com",
+        "title": "Software Engineer",
+        "yr": "2024",
+        "loc": "Remote",
+        "monthlySalary": 4853,
+        "hourlySalary": 28,
+        "moreInfo": "",
+        "tags": "",
+        "link": "https://www.instructure.com/about/careers#comparably",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": true,
+        "educationLevel": "Undergrad (Junior)",
         "verified": false
     },
     {
@@ -4173,6 +4224,8 @@
         "title": "Software Engineer",
         "yr": "2024",
         "loc": "Remote",
+        "monthlySalary": 9500,
+        "hourlySalary": 54.81,
         "moreInfo": "",
         "tags": "",
         "link": "https://www.pinterestcareers.com/en/jobs/5379900/software-engineering-intern-2024-usa/?gh_jid=5379900",
@@ -5411,6 +5464,23 @@
         "season": "Summer",
         "appNotOpen": false,
         "educationLevel": "",
+        "verified": false
+    },
+    {
+        "company": "UiPath",
+        "icon": "https://logo.clearbit.com/UiPath.com",
+        "title": "Software Engineer",
+        "yr": "2024",
+        "loc": "Bellevue, WA",
+        "monthlySalary": 9013,
+        "hourlySalary": 52,
+        "moreInfo": "$2,000 / mo housing",
+        "tags": "",
+        "link": "https://www.uipath.com/company/careers/jobs",
+        "covidAffect": false,
+        "season": "Summer",
+        "appNotOpen": false,
+        "educationLevel": "Undergrad (Junior)",
         "verified": false
     },
     {
