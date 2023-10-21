@@ -92,21 +92,32 @@ async def get_internship(interact: discord.Interaction, index: int):
     except Exception as e:
         await interact.response.send_message(f"An exception has occured. Please refer to the traceback below and blame someone.\n```{traceback.format_exc()}```")
         return
-
-@client.tree.command(name="random_internship")
-async def random_internship(interact: discord.Interaction):
-    print(interact.user, f"asked for a random internship on {datetime.now()}")
-    try:
-        random_index = randint(0, len(client.internships_data) - 1)
-        embed, url_view = create_internship_embed(random_index)
-        
-        await interact.response.send_message(embed=embed, view=url_view)
-    except Exception as e:
-        await interact.response.send_message(f"An exception has occured. Please refer to the traceback below and blame someone.\n```{traceback.format_exc()}```")
-        return
     
 
-@tasks.loop(minutes=15)
+def create_internship_embed(index: int):
+    if index > len(client.internships_data) - 1 or index < 0:
+        index = 0
+
+    embed = discord.Embed(title=f"Internship #{index} - {its.check_for_key(client.internships_data[index], 'company')}",
+                            colour=discord.Colour(int(calc_avg_color(client.internships_data[index]['icon']).lstrip('#'), 16)),
+                            url=its.check_for_key(client.internships_data[index], 'link'))
+
+    embed.set_thumbnail(url=its.check_for_key(client.internships_data[index], 'icon'))
+    embed.add_field(name="Company", value=its.check_for_key(client.internships_data[index], 'company'))
+    embed.add_field(name="Job Title", value=its.check_for_key(client.internships_data[index], 'title'))
+    embed.add_field(name="Required Education", value=its.check_for_key(client.internships_data[index], 'educationLevel'))
+    embed.add_field(name="Year", value=f"{its.check_for_key(client.internships_data[index],'season')} {its.check_for_key(client.internships_data[index],'yr')}")
+    embed.add_field(name="Location", value=its.check_for_key(client.internships_data[index], 'loc'))
+    embed.add_field(name="Salary", value=f"${its.check_for_key(client.internships_data[index],'monthlySalary')}/mo\n${its.check_for_key(client.internships_data[index],'hourlySalary')}/hr")
+    
+    url_view = discord.ui.View() 
+    url_view.add_item(discord.ui.Button(label='Apply', style=discord.ButtonStyle.url, url=its.check_for_key(client.internships_data[index], 'link')))
+    url_view.add_item(discord.ui.Button(label='Test', style=discord.ButtonStyle.green))
+
+    return embed, url_view
+    
+
+@tasks.loop(minutes=15.0)
 async def update():
     print(f"Initiating a new update on {datetime.now()}")
 
