@@ -1,6 +1,7 @@
 import os
 from datetime import datetime
 import traceback
+from random import randint
 
 import discord
 from discord import app_commands
@@ -31,8 +32,8 @@ class Bot(discord.Client):
         await self.tree.sync(guild=MY_GUILD)
 
 
-
 client = Bot()
+
 
 @client.event
 async def on_ready():
@@ -45,9 +46,9 @@ async def on_ready():
 @client.tree.command(name="internship")
 async def get_internship(interact, index: int):
     try:
-        if index > len(client.internships_data) - 1 or index < 0:
-            await interact.response.send_message(f"Internship #{index} does not exist. Try again.")
-            return
+        # if index > len(client.internships_data) - 1 or index < 0:
+        #     await interact.response.send_message(f"Internship #{index} does not exist. Try again.")
+        #     return
 
         embed, url_view = create_internship_embed(index)
         
@@ -59,7 +60,10 @@ async def get_internship(interact, index: int):
 
 def create_internship_embed(index: int):
     if index > len(client.internships_data) - 1 or index < 0:
-        index = 0
+        embed = discord.Embed(title=f"Internship #{index} does not exist. Please try again with a different ID.", colour=discord.Colour(0xff0000))
+        url_view = discord.ui.View()
+        return embed, url_view
+
 
 
     embed = discord.Embed(title=f"Internship #{index} - {its.check_for_key(client.internships_data[index], 'company')}",
@@ -77,12 +81,24 @@ def create_internship_embed(index: int):
     
     url_view = discord.ui.View() 
     url_view.add_item(discord.ui.Button(label='Apply', style=discord.ButtonStyle.url, url=its.check_for_key(client.internships_data[index], 'link')))
-    url_view.add_item(discord.ui.Button(label='Test', style=discord.ButtonStyle.green))
+    url_view.add_item(discord.ui.Button(label='Random Internship', style=discord.ButtonStyle.green, custom_id='random_internship'))
 
     return embed, url_view
+
+@client.tree.command(name="random_internship")
+async def random_internship(interact):
+    try:
+        random_index = randint(0, len(client.internships_data) - 1)
+        
+        embed, url_view = create_internship_embed(random_index)
+        
+        await interact.response.send_message(embed=embed, view=url_view)
+    except Exception as e:
+        await interact.response.send_message(f"An exception has occured. Please refer to the traceback below and blame someone.\n```{traceback.format_exc()}```")
+        return
     
 
-@tasks.loop(seconds=15.0)
+@tasks.loop(seconds=900.0)
 async def update():
     channel_to_post = client.get_channel(1160282313859530854)
     
@@ -94,14 +110,14 @@ async def update():
             client.internships_data = its.open_file()
 
             if changes["amount"] > 0:
-                await channel_to_post.send(f"Update! {changes['amount']} new internship{'s' if changes['amount'] > 1 else ''} have been added! {changes['old_amount']} -> {len(client.internships_data)}")
+                await channel_to_post.send(f"Update! {changes['amount']} new internship{'s' if changes['amount'] > 1 else ''} has been added! {changes['old_amount']} -> {len(client.internships_data)}")
 
                 for post in range(len(client.internships_data) - changes["amount"], len(client.internships_data)):
                     embed, url_view = create_internship_embed(post)
                     await channel_to_post.send(embed=embed, view=url_view, silent=True)
 
             elif changes["amount"] < 0:
-                await channel_to_post.send(f"Update! {changes['amount']} internship{'s' if changes['amount'] > 1 else ''} have been removed! {changes['old_amount']} -> {len(client.internships_data)}")
+                await channel_to_post.send(f"Update! {changes['amount']} internship{'s' if changes['amount'] > 1 else ''} has been removed! {changes['old_amount']} -> {len(client.internships_data)}")
 
             await channel_to_post.send(f'\n\nDatabase updated! ({datetime.now()})')
         else:
