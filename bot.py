@@ -64,10 +64,8 @@ def create_internship_embed(index: int):
         url_view = discord.ui.View()
         return embed, url_view
 
-
-
     embed = discord.Embed(title=f"Internship #{index} - {its.check_for_key(client.internships_data[index], 'company')}",
-                            colour=discord.Colour(int((calc_avg_color(client.internships_data[index]['icon']).lstrip('#')), 16)),
+                            colour=discord.Colour(int(calc_avg_color(client.internships_data[index]['icon']).lstrip('#'), 16)),
                             url=its.check_for_key(client.internships_data[index], 'link'))
                             
 
