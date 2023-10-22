@@ -37,19 +37,22 @@ client = Bot()
 
 @client.event
 async def on_ready():
+    await client.get_channel(1160282313859530854).send(f'{client.user} is online and running! - {datetime.now()}')
     print(f'{client.user} is online and running! ({datetime.now()})')
-    print('------')
+    print('-------------------')
 
     update.start()
 
 
-@client.tree.command(name="internship")
-async def get_internship(interact, index: int):
-    try:
-        # if index > len(client.internships_data) - 1 or index < 0:
-        #     await interact.response.send_message(f"Internship #{index} does not exist. Try again.")
-        #     return
+async def update_account_status(internship_amount):
+    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"{internship_amount} internship{'s' if internship_amount > 1 else ''}"))
+    print(f"Bot status changed to Watching", f"{internship_amount} internship{'s' if internship_amount > 1 else ''}")
 
+
+@client.tree.command(name="internship")
+async def get_internship(interact: discord.Interaction, index: int):
+    print(interact.user, f"asked for internship #{index} on {datetime.now()}")
+    try:
         embed, url_view = create_internship_embed(index)
         
         await interact.response.send_message(embed=embed, view=url_view)
@@ -59,10 +62,15 @@ async def get_internship(interact, index: int):
     
 
 def create_internship_embed(index: int):
+    print(f"A new internship embed is being created on {datetime.now()}")
+
     if index > len(client.internships_data) - 1 or index < 0:
         embed = discord.Embed(title=f"Internship #{index} does not exist. Please try again with a different ID.", colour=discord.Colour(0xff0000))
         url_view = discord.ui.View()
+        print("Internship did not exist.")
         return embed, url_view
+    
+    print(client.internships_data[index])
 
     embed = discord.Embed(title=f"Internship #{index} - {its.check_for_key(client.internships_data[index], 'company')}",
                             colour=discord.Colour(int(calc_avg_color(client.internships_data[index]['icon']).lstrip('#'), 16)),
@@ -83,7 +91,8 @@ def create_internship_embed(index: int):
     return embed, url_view
 
 @client.tree.command(name="random_internship")
-async def random_internship(interact):
+async def random_internship(interact: discord.Interaction):
+    print(interact.user, f"asked for a random internship on {datetime.now()}")
     try:
         random_index = randint(0, len(client.internships_data) - 1)
         embed, url_view = create_internship_embed(random_index)
@@ -96,16 +105,22 @@ async def random_internship(interact):
 
 @tasks.loop(seconds=900.0)
 async def update():
+    print(f"Initiating a new update on {datetime.now()}")
+
     channel_to_post = client.get_channel(1160282313859530854)
     
     try:
         changes = its.check_for_update()
 
         if changes["changed"]:
+            print("A new update has been detected.")
+
             its.update_file()
             client.internships_data = its.open_file()
 
             if changes["amount"] > 0:
+                print(f"{changes['amount']} new internships found.")
+
                 await channel_to_post.send(f"Update! {changes['amount']} new internship{'s' if changes['amount'] > 1 else ''} has been added! {changes['old_amount']} -> {len(client.internships_data)}")
 
                 if changes["amount"] <= 10:
@@ -114,18 +129,25 @@ async def update():
                         await channel_to_post.send(embed=embed, view=url_view, silent=True)
 
             elif changes["amount"] < 0:
+                print(f'{changes["amount"]} internships have been removed.')
                 await channel_to_post.send(f"Update! {changes['amount']} internship{'s' if changes['amount'] > 1 else ''} has been removed! {changes['old_amount']} -> {len(client.internships_data)}")
 
             await channel_to_post.send(f'\n\nDatabase updated! ({datetime.now()})')
         else:
-            await channel_to_post.send(f"Database is up to date! ({len(client.internships_data)} internships as of {datetime.now()})", silent=True)
+            print('No new update.')
+            print(f"Database is up to date! ({len(client.internships_data)} internships as of {datetime.now()})")
+
 
     except Exception as e:
+        print(f"An exception has occured. Please refer to the traceback below and blame someone.\n```{traceback.format_exc()}```")
         await channel_to_post.send(f"An exception has occured. Please refer to the traceback below and blame someone.\n```{traceback.format_exc()}```", silent=True)
         return
     
+    await update_account_status(len(client.internships_data))
+    
 @client.tree.command(name="test")
 async def test_refresh_json(interact):
+    print("Refreshing json")
     client.internships_data = its.open_file()
     await interact.response.send_message(f"json file refreshed, {len(client.internships_data)}")
     
