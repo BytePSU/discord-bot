@@ -2,7 +2,7 @@ from PIL import Image
 import requests
 import random
 
-def calc_avg_color(url):
+def calc_avg_color(url: str):
 
     data = requests.get(url, stream=True)
 
@@ -36,11 +36,7 @@ def calc_avg_color(url):
         # Convert average RGB values to hexadecimal
         color_code = f"#{avg_red:02x}{avg_green:02x}{avg_blue:02x}"
         return color_code
-    else:
-        with open('utils/embed_colors.txt', 'r') as f:
-            random_colors = [int(line.strip(), 16) for line in f.readlines()]
-            color = random.choice(random_colors)
-        return color
+    return color_code
     
 
 if __name__ == "__main__":
