@@ -164,4 +164,4 @@ cython_debug/
 
 # Additional
 tempCodeRunnerFile.py
-internships.json
+database/internships.json
