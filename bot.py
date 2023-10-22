@@ -108,10 +108,10 @@ async def update():
             if changes["amount"] > 0:
                 await channel_to_post.send(f"Update! {changes['amount']} new internship{'s' if changes['amount'] > 1 else ''} has been added! {changes['old_amount']} -> {len(client.internships_data)}")
 
-                #if changes["amount"] <= 5:
-                for post in range(len(client.internships_data) - changes["amount"], len(client.internships_data)):
-                    embed, url_view = create_internship_embed(post)
-                    await channel_to_post.send(embed=embed, view=url_view, silent=True)
+                if changes["amount"] <= 10:
+                    for post in range(len(client.internships_data) - changes["amount"], len(client.internships_data)):
+                        embed, url_view = create_internship_embed(post)
+                        await channel_to_post.send(embed=embed, view=url_view, silent=True)
 
             elif changes["amount"] < 0:
                 await channel_to_post.send(f"Update! {changes['amount']} internship{'s' if changes['amount'] > 1 else ''} has been removed! {changes['old_amount']} -> {len(client.internships_data)}")
