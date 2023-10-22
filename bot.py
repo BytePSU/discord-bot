@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
-import traceback
 from random import randint
+import traceback
 
 import discord
 from discord import app_commands
@@ -32,8 +32,8 @@ class Bot(discord.Client):
         await self.tree.sync(guild=MY_GUILD)
 
 
-client = Bot()
 
+client = Bot()
 
 @client.event
 async def on_ready():
@@ -86,6 +86,10 @@ def create_internship_embed(index: int):
 async def get_internship(interact: discord.Interaction, index: int):
     print(interact.user, f"asked for internship #{index} on {datetime.now()}")
     try:
+        if index > len(client.internships_data) - 1 or index < 0:
+            await interact.response.send_message(f"Internship #{index} does not exist. Try again.")
+            return
+
         embed, url_view = create_internship_embed(index)
         
         await interact.response.send_message(embed=embed, view=url_view)
@@ -97,6 +101,10 @@ async def get_internship(interact: discord.Interaction, index: int):
 def create_internship_embed(index: int):
     if index > len(client.internships_data) - 1 or index < 0:
         index = 0
+
+        embed = discord.Embed(title=f"Internship #{index} does not exist. Please try again with a different ID.", colour=discord.Colour(0xff0000))
+        url_view = discord.ui.View()
+        return embed, url_view
 
     embed = discord.Embed(title=f"Internship #{index} - {its.check_for_key(client.internships_data[index], 'company')}",
                             colour=discord.Colour(int(calc_avg_color(client.internships_data[index]['icon']).lstrip('#'), 16)),
@@ -113,8 +121,21 @@ def create_internship_embed(index: int):
     url_view = discord.ui.View() 
     url_view.add_item(discord.ui.Button(label='Apply', style=discord.ButtonStyle.url, url=its.check_for_key(client.internships_data[index], 'link')))
     url_view.add_item(discord.ui.Button(label='Test', style=discord.ButtonStyle.green))
+    url_view.add_item(discord.ui.Button(label='Test', style=discord.ButtonStyle.green))
 
     return embed, url_view
+
+@client.tree.command(name="random_internship")
+async def random_internship(interact):
+    try:
+        random_index = randint(0, len(client.internships_data) - 1)
+        
+        embed, url_view = create_internship_embed(random_index)
+        
+        await interact.response.send_message(embed=embed, view=url_view)
+    except Exception as e:
+        await interact.response.send_message(f"An exception has occured. Please refer to the traceback below and blame someone.\n```{traceback.format_exc()}```")
+        return
     
 
 @tasks.loop(minutes=15.0)
