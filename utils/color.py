@@ -2,7 +2,7 @@ from PIL import Image
 import requests
 import random
 
-def calc_avg_color(url):
+def calc_avg_color(url: str):
 
     data = requests.get(url, stream=True)
 

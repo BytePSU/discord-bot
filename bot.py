@@ -44,7 +44,7 @@ async def on_ready():
     update.start()
 
 
-async def update_account_status(internship_amount):
+async def update_account_status(internship_amount: int):
     await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"{internship_amount} internship{'s' if internship_amount > 1 else ''}"))
     print(f"Bot status changed to Watching", f"{internship_amount} internship{'s' if internship_amount > 1 else ''}")
 
@@ -146,7 +146,7 @@ async def update():
     await update_account_status(len(client.internships_data))
     
 @client.tree.command(name="test")
-async def test_refresh_json(interact):
+async def test_refresh_json(interact: discord.Interaction):
     print("Refreshing json")
     client.internships_data = its.open_file()
     await interact.response.send_message(f"json file refreshed, {len(client.internships_data)}")
