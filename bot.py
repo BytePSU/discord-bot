@@ -86,7 +86,6 @@ def create_internship_embed(index: int):
 async def random_internship(interact):
     try:
         random_index = randint(0, len(client.internships_data) - 1)
-        
         embed, url_view = create_internship_embed(random_index)
         
         await interact.response.send_message(embed=embed, view=url_view)
@@ -109,6 +108,7 @@ async def update():
             if changes["amount"] > 0:
                 await channel_to_post.send(f"Update! {changes['amount']} new internship{'s' if changes['amount'] > 1 else ''} has been added! {changes['old_amount']} -> {len(client.internships_data)}")
 
+                #if changes["amount"] <= 5:
                 for post in range(len(client.internships_data) - changes["amount"], len(client.internships_data)):
                     embed, url_view = create_internship_embed(post)
                     await channel_to_post.send(embed=embed, view=url_view, silent=True)
@@ -125,9 +125,8 @@ async def update():
         return
     
 @client.tree.command(name="test")
-async def test1(interact):
+async def test_refresh_json(interact):
     client.internships_data = its.open_file()
-
     await interact.response.send_message(f"json file refreshed, {len(client.internships_data)}")
     
 
