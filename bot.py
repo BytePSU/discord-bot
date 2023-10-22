@@ -67,7 +67,7 @@ def create_internship_embed(index: int):
 
 
     embed = discord.Embed(title=f"Internship #{index} - {its.check_for_key(client.internships_data[index], 'company')}",
-                            colour=discord.Colour(int(calc_avg_color(client.internships_data[index]['icon']).lstrip('#'), 16)),
+                            colour=discord.Colour(int((calc_avg_color(client.internships_data[index]['icon']).lstrip('#')), 16)),
                             url=its.check_for_key(client.internships_data[index], 'link'))
                             
 
@@ -81,7 +81,6 @@ def create_internship_embed(index: int):
     
     url_view = discord.ui.View() 
     url_view.add_item(discord.ui.Button(label='Apply', style=discord.ButtonStyle.url, url=its.check_for_key(client.internships_data[index], 'link')))
-    url_view.add_item(discord.ui.Button(label='Random Internship', style=discord.ButtonStyle.green, custom_id='random_internship'))
 
     return embed, url_view
 
