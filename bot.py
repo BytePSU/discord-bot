@@ -128,8 +128,8 @@ async def update():
 
                 if changes["amount"] <= 10:
                     for post in range(len(client.internships_data) - changes["amount"], len(client.internships_data)):
-                        embed1, embed2, url_view = create_internship_embed(post)
-                        await channel_to_post.send(embeds=[embed1, embed2], view=url_view, silent=True)
+                        embed, url_view = create_internship_embed(post)
+                        await channel_to_post.send(embed=embed, view=url_view, silent=True)
 
             elif changes["amount"] < 0:
                 print(f'{changes["amount"]} internships have been removed.')
