@@ -37,7 +37,7 @@ client = Bot()
 
 @client.event
 async def on_ready():
-    await client.get_channel(1160282313859530854).send(f'{client.user} is online and running! - {datetime.now()}')
+    #await client.get_channel(1160282313859530854).send(f'{client.user} is online and running! - {datetime.now()}')
     print(f'{client.user} is online and running! ({datetime.now()})')
     print('-------------------')
 
@@ -48,6 +48,39 @@ async def update_account_status(internship_amount: int):
     await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"{internship_amount} internship{'s' if internship_amount > 1 else ''}"))
     print(f"Bot status changed to Watching", f"{internship_amount} internship{'s' if internship_amount > 1 else ''}")
 
+def create_internship_embed(index: int):
+    print(f"A new internship embed is being created on {datetime.now()}")
+
+    if index > len(client.internships_data) - 1 or index < 0:
+        embed = discord.Embed(title=f"Internship #{index} does not exist. Please try again with a different ID.", colour=discord.Colour(0xff0000))
+        url_view = discord.ui.View()
+        print("Internship did not exist.")
+        return embed, url_view
+
+    print(client.internships_data[index])
+
+    embed = discord.Embed(description=f"<@&1165743852708180049> | *Apply now!*\n{'<:D10:1165807583655891004> '*9}\n**{its.check_for_key(client.internships_data[index], 'title')} • {its.check_for_key(client.internships_data[index], 'season')} {its.check_for_key(client.internships_data[index],'yr')}**\n\n:earth_americas:   :dollar:",
+                          title=f"{its.check_for_key(client.internships_data[index], 'company')} (#{index})",
+                          colour=discord.Colour(int(calc_avg_color(client.internships_data[index]['icon']).lstrip('#'), 16)),
+                          timestamp=datetime.now())  
+    
+    embed.set_thumbnail(url=its.check_for_key(client.internships_data[index], 'icon'))
+    embed.add_field(name="Location", value=its.check_for_key(client.internships_data[index], 'loc'))
+    embed.set_footer(text = f"New Internship at {its.check_for_key(client.internships_data[index], 'company')}")
+
+    if (its.check_for_key(client.internships_data[index], 'educationLevel') != 'Not Available'): 
+        embed.add_field(name="Education", value=its.check_for_key(client.internships_data[index], 'educationLevel'))
+    else: 
+        embed.add_field(name="Education", value='Any')
+    if (its.check_for_key(client.internships_data[index], 'hourlySalary') != 'Not Available'): 
+        embed.add_field(name="Salary", value=f"${round(its.check_for_key(client.internships_data[index],'monthlySalary'))}/mo • ${round(its.check_for_key(client.internships_data[index],'hourlySalary'))}/hr")
+    else:
+        embed.add_field(name="Salary", value='Unknown')
+    
+    url_view = discord.ui.View() 
+    url_view.add_item(discord.ui.Button(label='Apply', style=discord.ButtonStyle.url, url=its.check_for_key(client.internships_data[index], 'link')))
+
+    return embed, url_view
 
 @client.tree.command(name="internship")
 async def get_internship(interact: discord.Interaction, index: int):
@@ -59,36 +92,6 @@ async def get_internship(interact: discord.Interaction, index: int):
     except Exception as e:
         await interact.response.send_message(f"An exception has occured. Please refer to the traceback below and blame someone.\n```{traceback.format_exc()}```")
         return
-    
-
-def create_internship_embed(index: int):
-    print(f"A new internship embed is being created on {datetime.now()}")
-
-    if index > len(client.internships_data) - 1 or index < 0:
-        embed = discord.Embed(title=f"Internship #{index} does not exist. Please try again with a different ID.", colour=discord.Colour(0xff0000))
-        url_view = discord.ui.View()
-        print("Internship did not exist.")
-        return embed, url_view
-    
-    print(client.internships_data[index])
-
-    embed = discord.Embed(title=f"Internship #{index} - {its.check_for_key(client.internships_data[index], 'company')}",
-                            colour=discord.Colour(int(calc_avg_color(client.internships_data[index]['icon']).lstrip('#'), 16)),
-                            url=its.check_for_key(client.internships_data[index], 'link'))
-                            
-
-    embed.set_thumbnail(url=its.check_for_key(client.internships_data[index], 'icon'))
-    embed.add_field(name="Company", value=its.check_for_key(client.internships_data[index], 'company'))
-    embed.add_field(name="Job Title", value=its.check_for_key(client.internships_data[index], 'title'))
-    embed.add_field(name="Required Education", value=its.check_for_key(client.internships_data[index], 'educationLevel'))
-    embed.add_field(name="Year", value=f"{its.check_for_key(client.internships_data[index],'season')} {its.check_for_key(client.internships_data[index],'yr')}")
-    embed.add_field(name="Location", value=its.check_for_key(client.internships_data[index], 'loc'))
-    embed.add_field(name="Salary", value=f"${its.check_for_key(client.internships_data[index],'monthlySalary')}/mo\n${its.check_for_key(client.internships_data[index],'hourlySalary')}/hr")
-    
-    url_view = discord.ui.View() 
-    url_view.add_item(discord.ui.Button(label='Apply', style=discord.ButtonStyle.url, url=its.check_for_key(client.internships_data[index], 'link')))
-
-    return embed, url_view
 
 @client.tree.command(name="random_internship")
 async def random_internship(interact: discord.Interaction):
@@ -103,7 +106,7 @@ async def random_internship(interact: discord.Interaction):
         return
     
 
-@tasks.loop(seconds=900.0)
+@tasks.loop(minutes=15)
 async def update():
     print(f"Initiating a new update on {datetime.now()}")
 
@@ -125,8 +128,8 @@ async def update():
 
                 if changes["amount"] <= 10:
                     for post in range(len(client.internships_data) - changes["amount"], len(client.internships_data)):
-                        embed, url_view = create_internship_embed(post)
-                        await channel_to_post.send(embed=embed, view=url_view, silent=True)
+                        embed1, embed2, url_view = create_internship_embed(post)
+                        await channel_to_post.send(embeds=[embed1, embed2], view=url_view, silent=True)
 
             elif changes["amount"] < 0:
                 print(f'{changes["amount"]} internships have been removed.')
