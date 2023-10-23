@@ -59,12 +59,14 @@ def create_internship_embed(index: int):
 
     print(client.internships_data[index])
 
-    embed = discord.Embed(description=f"<@&1165743852708180049> | Apply now!\n{'<:D10:1165807583655891004>'*17}\n**{its.check_for_key(client.internships_data[index], 'title')} • {its.check_for_key(client.internships_data[index],'yr')}**\n*__Info:__*",
+    embed = discord.Embed(description=f"<@&1165743852708180049> | *Apply now!*\n{'<:D10:1165807583655891004> '*9}\n**{its.check_for_key(client.internships_data[index], 'title')} • {its.check_for_key(client.internships_data[index], 'season')} {its.check_for_key(client.internships_data[index],'yr')}**\n\n:earth_americas:   :dollar:",
                           title=f"{its.check_for_key(client.internships_data[index], 'company')} (#{index})",
-                          colour=discord.Colour(int(calc_avg_color(client.internships_data[index]['icon']).lstrip('#'), 16)))  
-
+                          colour=discord.Colour(int(calc_avg_color(client.internships_data[index]['icon']).lstrip('#'), 16)),
+                          timestamp=datetime.now())  
+    
     embed.set_thumbnail(url=its.check_for_key(client.internships_data[index], 'icon'))
     embed.add_field(name="Location", value=its.check_for_key(client.internships_data[index], 'loc'))
+    embed.set_footer(text = f"New Internship at {its.check_for_key(client.internships_data[index], 'company')}")
 
     if (its.check_for_key(client.internships_data[index], 'educationLevel') != 'Not Available'): 
         embed.add_field(name="Education", value=its.check_for_key(client.internships_data[index], 'educationLevel'))
