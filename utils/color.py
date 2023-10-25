@@ -40,4 +40,4 @@ def calc_avg_color(url: str):
     
 
 if __name__ == "__main__":
-    print("color.py is not meant to be run directly unless for testing.")
+    print("color.py: color.py is not meant to be run directly unless for testing.")

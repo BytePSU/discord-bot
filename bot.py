@@ -7,15 +7,11 @@ import discord
 from discord import app_commands
 from discord.ext import tasks
 from dotenv import load_dotenv
+load_dotenv()
 
 from utils import internship as its 
 from utils.color import calc_avg_color
-
-
-load_dotenv()
-TOKEN = os.getenv('BOT_TOKEN')
-GUILD_ID = os.getenv('BOT_GUILD_ID')
-MY_GUILD = discord.Object(id=GUILD_ID)
+its.update_file()
 
 
 class Bot(discord.Client):  
@@ -25,6 +21,7 @@ class Bot(discord.Client):
         Whenever you work with app cmds, the tree is used to store and work with them.''' 
         self.tree = app_commands.CommandTree(self)
         self.internships_data = its.open_file()
+        self.testing = os.getenv('TESTING') == '1'
     
     async def setup_hook(self):
         # This copies the global commands over to the guild/server.
@@ -35,10 +32,18 @@ class Bot(discord.Client):
 client = Bot()
 
 
+
+TOKEN = os.getenv('BOT_TOKEN')
+GUILD_ID = os.getenv('BOT_GUILD_ID')
+MY_GUILD = discord.Object(id=GUILD_ID)
+CHANNEL_ID = [os.getenv('CHANNEL_ID') if not client.testing else os.getenv('TESTING_CHANNEL_ID')][0]
+
+
 @client.event
 async def on_ready():
-    #await client.get_channel(1160282313859530854).send(f'{client.user} is online and running! - {datetime.now()}')
-    print(f'{client.user} is online and running! ({datetime.now()})')
+    
+
+    print(f'{client.user} is online and running! ({datetime.now()}) ({["Testing" if client.testing else "Normal"]})')
     print('-------------------')
 
     update.start()
@@ -48,7 +53,7 @@ async def update_account_status(internship_amount: int):
     await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"{internship_amount} internship{'s' if internship_amount > 1 else ''}"))
     print(f"Bot status changed to Watching", f"{internship_amount} internship{'s' if internship_amount > 1 else ''}")
 
-def create_internship_embed(index: int):
+def create_internship_embed(index: int, user_gen: bool = False):
     print(f"A new internship embed is being created on {datetime.now()}")
 
     if index > len(client.internships_data) - 1 or index < 0:
@@ -59,7 +64,7 @@ def create_internship_embed(index: int):
 
     print(client.internships_data[index])
 
-    embed = discord.Embed(description=f"<@&1165743852708180049> | *Apply now!*\n{'<:D10:1165807583655891004> '*9}\n**{its.check_for_key(client.internships_data[index], 'title')} • {its.check_for_key(client.internships_data[index], 'season')} {its.check_for_key(client.internships_data[index],'yr')}**\n\n:earth_americas:   :dollar:",
+    embed = discord.Embed(description=f"{'<@&1165743852708180049> | ' if not user_gen else ''}*Apply now!*\n{'<:D10:1165807583655891004> '*9}\n**{its.check_for_key(client.internships_data[index], 'title')} • {its.check_for_key(client.internships_data[index], 'season')} {its.check_for_key(client.internships_data[index],'yr')}**\n\n:earth_americas:   :dollar:",
                           title=f"{its.check_for_key(client.internships_data[index], 'company')} (#{index})",
                           colour=discord.Colour(int(calc_avg_color(client.internships_data[index]['icon']).lstrip('#'), 16)),
                           timestamp=datetime.now())  
@@ -86,7 +91,7 @@ def create_internship_embed(index: int):
 async def get_internship(interact: discord.Interaction, index: int):
     print(interact.user, f"asked for internship #{index} on {datetime.now()}")
     try:
-        embed, url_view = create_internship_embed(index)
+        embed, url_view = create_internship_embed(index, True)
         
         await interact.response.send_message(embed=embed, view=url_view)
     except Exception as e:
@@ -98,7 +103,7 @@ async def random_internship(interact: discord.Interaction):
     print(interact.user, f"asked for a random internship on {datetime.now()}")
     try:
         random_index = randint(0, len(client.internships_data) - 1)
-        embed, url_view = create_internship_embed(random_index)
+        embed, url_view = create_internship_embed(random_index, True)
         
         await interact.response.send_message(embed=embed, view=url_view)
     except Exception as e:
@@ -110,7 +115,7 @@ async def random_internship(interact: discord.Interaction):
 async def update():
     print(f"Initiating a new update on {datetime.now()}")
 
-    channel_to_post = client.get_channel(1160282313859530854)
+    channel_to_post = client.get_channel(CHANNEL_ID)
     
     try:
         changes = its.check_for_update()
@@ -158,3 +163,4 @@ async def test_refresh_json(interact: discord.Interaction):
 
 
 client.run(TOKEN)
+
