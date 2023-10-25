@@ -1,5 +1,6 @@
 import json
 import requests
+import os
 
 def check_for_key(internship, key):
     try:
@@ -29,6 +30,10 @@ def get_internship_file(filter=True):
 
 def update_file():
     internships = get_internship_file()
+
+    if not os.path.exists('database'):
+        print("internship.py: Database folder missing, creating.")
+        os.mkdir('database')
 
     with open('database/internships.json', 'w') as f:
         json.dump(internships, f, indent=4)
@@ -62,4 +67,4 @@ def check_for_update():
         }
 
 if __name__ == "__main__":
-    print("internship.py is not meant to be run directly unless for testing.")
+    print("internship.py: internship.py is not meant to be run directly unless for testing.")
