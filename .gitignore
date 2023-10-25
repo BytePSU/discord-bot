@@ -1,5 +1,7 @@
 # BytePSU specific
 bot/__pycache__/
+database/
+database/internships.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -164,4 +166,4 @@ cython_debug/
 
 # Additional
 tempCodeRunnerFile.py
-database/internships.json
+
