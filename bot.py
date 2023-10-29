@@ -38,8 +38,6 @@ GUILD_ID = os.getenv('BOT_GUILD_ID')
 MY_GUILD = discord.Object(id=GUILD_ID)
 CHANNEL_ID = [os.getenv('CHANNEL_ID') if not client.testing else os.getenv('TESTING_CHANNEL_ID')][0]
 
-
-
 def create_internship_embed(index: int):
     '''Beautified messages through discord.py embeds. 
     Displays the internship's location, required education, and pay.'''
