@@ -3,16 +3,16 @@ from datetime import datetime
 from random import randint
 import traceback
 
-import openai
 import discord
 from discord import app_commands
 from discord.ext import tasks
 from dotenv import load_dotenv
-
 load_dotenv()
 
 from utils import internship as its 
 from utils.color import calc_avg_color
+from utils.job_descriptions import generate_job_summary
+from utils.format_dt import current_time
 its.update_file()
 
 
@@ -38,22 +38,6 @@ GUILD_ID = os.getenv('BOT_GUILD_ID')
 MY_GUILD = discord.Object(id=GUILD_ID)
 CHANNEL_ID = [os.getenv('CHANNEL_ID') if not client.testing else os.getenv('TESTING_CHANNEL_ID')][0]
 
-openai.api_key = os.getenv('GPT')
-
-
-def generate_job_summary(internship):
-    '''ChatGPT integration to provide brief summaries of companies'''
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {
-                "role": "user", 
-                "content": f"Summarize {internship} in 15 words or less WITHOUT restating the company's name. Be engaging!\n\nSummary:"}
-        ],
-        temperature=1,
-        max_tokens=20,
-    )
-    return response.choices[0].message.content
 
 
 def create_internship_embed(index: int):
@@ -63,17 +47,13 @@ def create_internship_embed(index: int):
 
     #Error-handling for out-of-range indices
     if index > len(internship_data) - 1 or index < 0:
-        index = 0
         embed = discord.Embed(title=f"Internship #{index} does not exist. Please try again with a different ID.", colour=discord.Colour(0xff0000))
         url_view = discord.ui.View()
 
         return embed, url_view
 
     #for ChatGPT text completion
-    try: 
-        job_summary = generate_job_summary(its.check_for_key(internship_data[index], 'company'))
-    except Exception as e: 
-        job_summary = None
+    job_summary = generate_job_summary(its.check_for_key(internship_data[index], 'company'))
 
     #Embed styling
     embed = discord.Embed(description=f"{job_summary} | *Apply now!*\n{'<:D10:1165807583655891004> '*9}\n**{its.check_for_key(internship_data[index], 'title')} • {its.check_for_key(internship_data[index], 'season')} {its.check_for_key(internship_data[index],'yr')}**\n\n:earth_americas:   :dollar:",
@@ -104,7 +84,7 @@ def create_internship_embed(index: int):
 
 @client.event
 async def on_ready():
-    print(f'{client.user} is online and running! ({datetime.now()}) ({["Testing" if client.testing else "Normal"]})')
+    print(f'{client.user} is online and running! ({current_time()}) ({["Testing" if client.testing else "Normal"]})')
     print('-------------------')
     update.start()
 
@@ -119,36 +99,36 @@ async def update_account_status(internship_amount: int):
 @client.tree.command(name="internship")
 async def get_internship(interact: discord.Interaction, index: int):
     '''Outputs an internship at a given index.'''
-    print(interact.user, f"asked for internship #{index} on {datetime.now()}")
+    print(interact.user, f"asked for internship #{index} on {current_time()}")
     try:
+        await interact.response.defer()
         embed, url_view = create_internship_embed(index)
-        ping = '<@&1165743852708180049>' #to notify interested users
-
-        await interact.response.send_message(ping, embed=embed, view=url_view)
+        await interact.followup.send(embed=embed, view=url_view)
     except Exception as e:
         await interact.response.send_message(f"An exception has occured. Please refer to the traceback below and blame someone.\n```{traceback.format_exc()}```")
         return
-    
+
 
 @client.tree.command(name="random_internship")
 async def random_internship(interact: discord.Interaction):
     '''Allows user to ask for a random internship.'''
-    print(interact.user, f"asked for a random internship on {datetime.now()}")
+    print(interact.user, f"asked for a random internship on {current_time()}")
+    
     try:
         random_index = randint(0, len(client.internships_data) - 1)
-        embed, url_view = create_internship_embed(random_index)
         
-        await interact.response.send_message(embed=embed, view=url_view)
+        await interact.response.defer()
+        embed, url_view = create_internship_embed(random_index)
+        await interact.followup.send(embed=embed, view=url_view)
     except Exception as e:
-        await interact.response.send_message(f"An exception has occured. Please refer to the traceback below and blame someone.\n```{traceback.format_exc()}```")
-        return
-    
+        await interact.response.send_message(f"An exception has occurred. Please refer to the traceback below and blame someone.\n```{traceback.format_exc()}```")
+
 
 @tasks.loop(minutes=15)
 async def update():
     '''Checks for new internships every fifteen minutes. When new internships are 
     detected, they are posted on a Discord channel.'''
-    print(f"Initiating a new update on {datetime.now()}")
+    print(f"Initiating a new update on {current_time()}")
 
     channel_to_post = client.get_channel(CHANNEL_ID)
     
@@ -163,8 +143,9 @@ async def update():
 
             if changes["amount"] > 0:
                 print(f"{changes['amount']} new internships found.")
+                ping = '<@&1165743852708180049>' #to notify interested users
 
-                await channel_to_post.send(f"Update! {changes['amount']} new internship{'s' if changes['amount'] > 1 else ''} has been added! {changes['old_amount']} -> {len(client.internships_data)}")
+                await channel_to_post.send(f"{ping} Update! {changes['amount']} new internship{'s' if changes['amount'] > 1 else ''} has been added! {changes['old_amount']} -> {len(client.internships_data)}")
 
                 if changes["amount"] <= 10:
                     for post in range(len(client.internships_data) - changes["amount"], len(client.internships_data)):
@@ -175,10 +156,10 @@ async def update():
                 print(f'{changes["amount"]} internships have been removed.')
                 await channel_to_post.send(f"Update! {changes['amount']} internship{'s' if changes['amount'] > 1 else ''} has been removed! {changes['old_amount']} -> {len(client.internships_data)}")
 
-            await channel_to_post.send(f'\n\nDatabase updated! ({datetime.now()})')
+            await channel_to_post.send(f'\n\nDatabase updated! ({current_time()})')
         else:
             print('No new update.')
-            print(f"Database is up to date! ({len(client.internships_data)} internships as of {datetime.now()})")
+            print(f"Database is up to date! ({len(client.internships_data)} internships as of {current_time()})")
 
 
     except Exception as e:
