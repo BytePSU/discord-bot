@@ -13,7 +13,7 @@ from utils import internship as its
 from utils.color import calc_avg_color
 from utils.job_descriptions import generate_job_summary
 from utils.format_dt import current_time
-its.update_file()
+#its.update_file()
 
 
 class Bot(discord.Client):  
