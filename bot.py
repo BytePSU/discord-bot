@@ -38,7 +38,7 @@ GUILD_ID = os.getenv('BOT_GUILD_ID')
 MY_GUILD = discord.Object(id=GUILD_ID)
 CHANNEL_ID = [os.getenv('CHANNEL_ID') if not client.testing else os.getenv('TESTING_CHANNEL_ID')][0]
 
-def create_internship_embed(index: int):
+def create_internship_embed(index: int, ai: bool = False):
     '''Beautified messages through discord.py embeds. 
     Displays the internship's location, required education, and pay.'''
     internship_data = client.internships_data
@@ -51,10 +51,10 @@ def create_internship_embed(index: int):
         return embed, url_view
 
     #for ChatGPT text completion
-    job_summary = generate_job_summary(its.check_for_key(internship_data[index], 'company'))
+    job_summary, more_results_link = generate_job_summary(its.check_for_key(internship_data[index], 'company'), ai)
 
     #Embed styling
-    embed = discord.Embed(description=f"{job_summary} | *Apply now!*\n{'<:D10:1165807583655891004> '*9}\n**{its.check_for_key(internship_data[index], 'title')} • {its.check_for_key(internship_data[index], 'season')} {its.check_for_key(internship_data[index],'yr')}**\n\n:earth_americas:   :dollar:",
+    embed = discord.Embed(description=f"{job_summary}\n**(Summary incorrect? [Click here for more results.]({more_results_link}))**\n{'<:D10:1165807583655891004> '*9}\n**{its.check_for_key(internship_data[index], 'title')} • {its.check_for_key(internship_data[index], 'season')} {its.check_for_key(internship_data[index],'yr')}**\n\n:earth_americas:   :dollar:",
                           title=f"{its.check_for_key(internship_data[index], 'company')} (#{index})",
                           colour=discord.Colour(int(calc_avg_color(internship_data[index]['icon']).lstrip('#'), 16)),
                           timestamp=datetime.now())  
@@ -74,15 +74,15 @@ def create_internship_embed(index: int):
     
     #Button integration
     url_view = discord.ui.View() 
-    url_view.add_item(discord.ui.Button(label='Apply', style=discord.ButtonStyle.url, url=its.check_for_key(internship_data[index], 'link')))
-    url_view.add_item(discord.ui.Button(label='Rating', style=discord.ButtonStyle.green))
+    url_view.add_item(discord.ui.Button(label='Apply now!', style=discord.ButtonStyle.url, url=its.check_for_key(internship_data[index], 'link')))
+    #url_view.add_item(discord.ui.Button(label='Rating', style=discord.ButtonStyle.green))
 
     return embed, url_view
 
 
 @client.event
 async def on_ready():
-    print(f'{client.user} is online and running! ({current_time()}) ({["Testing" if client.testing else "Normal"]})')
+    print(f'{client.user} is online and running! ({current_time()}) ({"Testing" if client.testing else "Normal"})')
     print('-------------------')
     update.start()
 
@@ -114,6 +114,7 @@ async def random_internship(interact: discord.Interaction):
     
     try:
         random_index = randint(0, len(client.internships_data) - 1)
+        print(f'Random internship is #{random_index}')
         
         await interact.response.defer()
         embed, url_view = create_internship_embed(random_index)
@@ -128,7 +129,7 @@ async def update():
     detected, they are posted on a Discord channel.'''
     print(f"Initiating a new update on {current_time()}")
 
-    channel_to_post = client.get_channel(CHANNEL_ID)
+    channel_to_post = client.get_channel(int(CHANNEL_ID))
     
     try:
         changes = its.check_for_update()
@@ -178,4 +179,3 @@ async def force_refresh_json(interact: discord.Interaction):
 
 
 client.run(TOKEN)
-
