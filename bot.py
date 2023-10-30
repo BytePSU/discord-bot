@@ -168,9 +168,9 @@ async def update():
     await update_account_status(len(client.internships_data))
     
 
-@client.tree.command(name="test")
-async def test_refresh_json(interact: discord.Interaction):
-    print("Refreshing json")
+@client.tree.command(name="force_refresh")
+async def force_refresh_json(interact: discord.Interaction):
+    print("Forcing refresh on json...")
     client.internships_data = its.open_file()
     await interact.response.send_message(f"json file refreshed, {len(client.internships_data)}")
     
