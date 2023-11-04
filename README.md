@@ -1,33 +1,31 @@
 <h1 align=center>
     <img src="https://i.imgur.com/XiavREx.jpg" width=375>
-    <br>BytePSU Bot (temporary name)</br>
+    <br>Internships Bot</br>
 </h1>
 
-<h3 align=center>CS Job Application Discord bot facilitated by the PSU community</h3>
+<h3 align=center>Job Application facilitated by the PSU community</h3>
 
 <p align="center">
   <a href="#overview">Overview</a>
   •
-  <a href="#requirements">Requirements</a>
+  <a href="#features">Features</a>
   •
-  <a href="#license">License</a>
+  <a href="#example">Example</a>
 </p>
 
 # Overview
-BytePSU Bot (temporary name) is a Discord bot that automates the process of finding new internships for college students, without the need of any input. The Discord bot notifies when a new internship has been posted, with details regarding when it was posted, salary, requirements, and other information.
+Our Discord bot automates the process of finding new internships for college students. When a new internship entry is entered on [levels.fyi's](https://levels.fyi/internships) job board, a signal is sent to our bot to notify users of the new position. All necessary information is neatly packaged into one embedded message, with details regarding: 
 
-The bot currently only uses [levels.fyi's](https://levels.fyi/internships) internship lisitngs in order to fetch new internships. Later down the road, we will use multiple websites that will allow us to gather more internships.
+- Salary
+- Education Requirements
+- Location
+- And more
 
-Keep in mind that the bot is currently under heavy development.
-
-This is the first collaborative project from BytePSU club.
-# Requirements
-This Discord uses [Python 3.11](python.org) and [discord.py](https://discordpy.readthedocs.io/en/stable/).
-
-A requirements.txt is included to download all of the packages in mass.
-
-You will also need an Application through the Discord Development Portal in order to run the bot.
-
-# License
-This repo is under the [MIT license](https://github.com/BytePSU/discord-bot/blob/main/LICENSE).
-
+This is the first collaborative project from BytePSU club; expect more updates to come as we revisit this project in due time.
+# Features
+- Easy to use
+- Fast, real-time updates
+- Find positions at random
+- Find positions from a specified index
+# Example
+![Loading Image...](https://imgur.com/05fcK3Z.gif)
