@@ -1,6 +1,8 @@
 import json
 import requests
 import os
+from deepdiff import DeepDiff
+from re import sub
 
 def check_for_key(internship, key):
     try:
@@ -48,23 +50,37 @@ def open_file():
     return internships_data
 
 
-
 def check_for_update():
+    changes = {'old_amount': 0, "added" : [], "removed" : [], "cat_added" : [], "cat_removed" : [], "cat_changed" : []}
+
     new_internships = get_internship_file()
     old_internships = open_file()
 
-    if len(new_internships) != len(old_internships):
-        return {
-            "changed": True, 
-            "amount": len(new_internships) - len(old_internships), 
-            "old_amount": len(old_internships)
-        }
+    ddiff = DeepDiff(old_internships, new_internships, ignore_order=True, view='tree')
+
+    if len(ddiff) > 0:
+        for section in ddiff:
+            match section:
+                case "iterable_item_added" | "iterable_item_removed":
+                    for data in ddiff[section]:
+                        print(ddiff[section])
+                        paths = data.path(output_format='list')
+                        changes[f'{"added" if section == "iterable_item_added" else "removed"}'].append(paths[0])
+                case "dictionary_item_added" | "dictionary_item_removed":
+                    for data in ddiff[section]:
+                        paths = data.path(output_format='list')
+                        changes[f'{"cat_added" if section == "dictionary_item_added" else "cat_removed"}'].append([paths[0], paths[1]])
+                case "values_changed":
+                    for data in ddiff[section]:
+                        paths = data.path(output_format='list')
+                        changes[f'cat_changed'].append([paths[0], paths[1], data.t1, data.t2])
+
+        changes['old_amount'] = len(old_internships)
+
+        return True, changes
+                    
     else:
-        return {
-            "changed": False, 
-            "amount": 0, 
-            "old_amount": len(old_internships)
-        }
+        return False, {}
 
 if __name__ == "__main__":
     print("internship.py: internship.py is not meant to be run directly unless for testing.")

@@ -129,32 +129,94 @@ async def update():
     detected, they are posted on a Discord channel.'''
     print(f"Initiating a new update on {current_time()}")
 
+    ping = '<@&1165743852708180049>'
     channel_to_post = client.get_channel(int(CHANNEL_ID))
     
     try:
-        changes = its.check_for_update()
+        status, changes = its.check_for_update()
 
-        if changes["changed"]:
+        if status:
             print("A new update has been detected.")
+            await channel_to_post.send(f"{ping} Update! New internship changes has been found!")
 
-            its.update_file() 
-            client.internships_data = its.open_file() #updates and retrieves new data
+            if len(changes["removed"]) > 0:
+                print(f"⬇⬇⬇ {len(changes['removed'])} internships have been removed. ⬇⬇⬇")
+                await channel_to_post.send(f"⬇⬇⬇ {len(changes['removed'])} internships have been removed. ⬇⬇⬇")
 
-            if changes["amount"] > 0:
-                print(f"{changes['amount']} new internships found.")
-                ping = '<@&1165743852708180049>' #to notify interested users
-
-                await channel_to_post.send(f"{ping} Update! {changes['amount']} new internship{'s' if changes['amount'] > 1 else ''} has been added! {changes['old_amount']} -> {len(client.internships_data)}")
-
-                if changes["amount"] <= 10:
-                    for post in range(len(client.internships_data) - changes["amount"], len(client.internships_data)):
+                if len(changes["removed"]) <= 10:
+                    for post in changes["removed"]:
                         embed, url_view = create_internship_embed(post)
                         await channel_to_post.send(embed=embed, view=url_view, silent=True)
 
-            elif changes["amount"] < 0:
-                print(f'{changes["amount"]} internships have been removed.')
-                await channel_to_post.send(f"Update! {changes['amount']} internship{'s' if changes['amount'] > 1 else ''} has been removed! {changes['old_amount']} -> {len(client.internships_data)}")
+            its.update_file() 
+            client.internships_data = its.open_file()
 
+            if len(changes["added"]) > 0:
+                print(f"⬇⬇⬇ {len(changes['added'])} new internships have been added! ⬇⬇⬇")
+                await channel_to_post.send(f"⬇⬇⬇ {len(changes['added'])} new internships have been added! ⬇⬇⬇")
+
+                if len(changes["added"]) <= 10:
+                    for post in changes["added"]:
+                        embed, url_view = create_internship_embed(post)
+                        await channel_to_post.send(embed=embed, view=url_view, silent=True)
+
+
+            if len(changes["cat_added"]) > 0:
+                previous_intership = -1
+
+                for category in changes["cat_added"]:
+                    if previous_intership != category[0]:
+                        print(f"⬇⬇⬇ A new category was added for Internship #{category[0]} - {category[1]} ⬇⬇⬇")
+                        await channel_to_post.send(f"⬇⬇⬇ A new category was added for Internship #{category[0]} - {category[1]} ⬇⬇⬇")
+
+                        embed, url_view = create_internship_embed(category[0])
+                        await channel_to_post.send(embed=embed, view=url_view, silent=True)
+                    else:
+                        print(f"⬆⬆⬆ More categories were added from Internship #{category[0]} - {category[1]} ⬆⬆⬆")
+                        await channel_to_post.send(f"⬆⬆⬆ More categories were added from Internship #{category[0]} - {category[1]} ⬆⬆⬆")
+
+                    previous_intership = category[0]
+
+
+            
+            if len(changes["cat_removed"]) > 0:
+                previous_intership = -1
+
+                for category in changes["cat_removed"]:
+                    if previous_intership != category[0]:
+                        print(f"⬇⬇⬇ A category was removed from Internship #{category[0]} - {category[1]} ⬇⬇⬇")
+                        await channel_to_post.send(f"⬇⬇⬇ A category was removed from Internship #{category[0]} - {category[1]} ⬇⬇⬇")
+
+                        embed, url_view = create_internship_embed(category[0])
+                        await channel_to_post.send(embed=embed, view=url_view, silent=True)
+                    else:
+                        print(f"⬆⬆⬆ More categories were removed from Internship #{category[0]} - {category[1]} ⬆⬆⬆")
+                        await channel_to_post.send(f"⬆⬆⬆ More categories were removed from Internship #{category[0]} - {category[1]} ⬆⬆⬆")
+
+                    previous_intership = category[0]
+
+
+            if len(changes["cat_changed"]) > 0:
+                previous_intership = -1
+
+                for category in changes["cat_changed"]:
+                    if previous_intership != category[0]:
+                        print(f"⬇⬇⬇ A category was changed for Internship #{category[0]} - {category[1]}: {category[2]} -> {category[3]} ⬇⬇⬇")
+                        await channel_to_post.send(f"⬇⬇⬇ A category was changed for Internship #{category[0]} - {category[1]}: {category[2]} -> {category[3]} ⬇⬇⬇")
+
+                        embed, url_view = create_internship_embed(category[0])
+                        await channel_to_post.send(embed=embed, view=url_view, silent=True)
+                    else:
+                        print(f"⬆⬆⬆ More categories were changed from Internship #{category[0]} - {category[1]}: {category[2]} -> {category[3]} ⬆⬆⬆")
+                        await channel_to_post.send(f"⬆⬆⬆ More categories were changed from Internship #{category[0]} - {category[1]}: {category[2]} -> {category[3]} ⬆⬆⬆")
+
+                    previous_intership = category[0]
+
+
+            print(f"Result: {changes['old_amount']} internships -> {len(client.internships_data)}")
+
+            if len(client.internships_data) != changes['old_amount']:
+                await channel_to_post.send(f"Result: {changes['old_amount']} internships -> {len(client.internships_data)}")
             await channel_to_post.send(f'\n\nDatabase updated! ({current_time()})')
         else:
             print('No new update.')
