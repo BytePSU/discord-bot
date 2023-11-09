@@ -54,7 +54,7 @@ def create_internship_embed(index: int, ai: bool = False):
     job_summary, more_results_link = generate_job_summary(its.check_for_key(internship_data[index], 'company'), ai)
 
     #Embed styling
-    embed = discord.Embed(description=f"{job_summary}\n**(Summary incorrect? [Click here for more results.]({more_results_link}))**\n{'<:D10:1165807583655891004> '*9}\n**{its.check_for_key(internship_data[index], 'title')} • {its.check_for_key(internship_data[index], 'season')} {its.check_for_key(internship_data[index],'yr')}**\n\n:earth_americas:   :dollar:",
+    embed = discord.Embed(description=f"{job_summary}\n**(Summary incorrect? [Click here for more results.]({more_results_link}))**\n{'<:D10:1165807583655891004> '*9}\n**{its.check_for_key(internship_data[index], 'title')} • {its.check_for_key(internship_data[index], 'season')} {its.check_for_key(internship_data[index],'yr')}**",
                           title=f"{its.check_for_key(internship_data[index], 'company')} (#{index})",
                           colour=discord.Colour(int(calc_avg_color(internship_data[index]['icon']).lstrip('#'), 16)),
                           timestamp=datetime.now())  
@@ -67,14 +67,18 @@ def create_internship_embed(index: int, ai: bool = False):
         embed.add_field(name="Education", value=its.check_for_key(internship_data[index], 'educationLevel'))
     else: 
         embed.add_field(name="Education", value='Any')
+
     if (its.check_for_key(internship_data[index], 'hourlySalary') != 'Not Available'): 
         embed.add_field(name="Salary", value=f"${round(its.check_for_key(internship_data[index],'monthlySalary'))}/mo • ${round(its.check_for_key(internship_data[index],'hourlySalary'))}/hr")
     else:
         embed.add_field(name="Salary", value='Unknown')
     
     #Button integration
+    
     url_view = discord.ui.View() 
-    url_view.add_item(discord.ui.Button(label='Apply now!', style=discord.ButtonStyle.url, url=its.check_for_key(internship_data[index], 'link')))
+    if (its.check_for_key(internship_data[index], 'link') != 'Not Available'):
+        url_view.add_item(discord.ui.Button(label='Apply now!', style=discord.ButtonStyle.url, url=its.check_for_key(internship_data[index], 'link')))
+    
     #url_view.add_item(discord.ui.Button(label='Rating', style=discord.ButtonStyle.green))
 
     return embed, url_view
@@ -123,7 +127,7 @@ async def random_internship(interact: discord.Interaction):
         await interact.response.send_message(f"An exception has occurred. Please refer to the traceback below and blame someone.\n```{traceback.format_exc()}```")
 
 
-@tasks.loop(minutes=15)
+@tasks.loop(seconds=15)
 async def update():
     '''Checks for new internships every fifteen minutes. When new internships are 
     detected, they are posted on a Discord channel.'''
@@ -137,11 +141,12 @@ async def update():
 
         if status:
             print("A new update has been detected.")
-            await channel_to_post.send(f"{ping} Update! New internship changes has been found!")
+            await channel_to_post.send(f"{ping}\n# New Internship Update!")
 
             if len(changes["removed"]) > 0:
-                print(f"⬇⬇⬇ {len(changes['removed'])} internships have been removed. ⬇⬇⬇")
-                await channel_to_post.send(f"⬇⬇⬇ {len(changes['removed'])} internships have been removed. ⬇⬇⬇")
+                print(f"{len(changes['removed'])} internships have been removed.")
+                await channel_to_post.send(f"## Removed Internships")
+                await channel_to_post.send(f"{len(changes['removed'])} internships have been removed.")
 
                 if len(changes["removed"]) <= 10:
                     for post in changes["removed"]:
@@ -152,8 +157,9 @@ async def update():
             client.internships_data = its.open_file()
 
             if len(changes["added"]) > 0:
-                print(f"⬇⬇⬇ {len(changes['added'])} new internships have been added! ⬇⬇⬇")
-                await channel_to_post.send(f"⬇⬇⬇ {len(changes['added'])} new internships have been added! ⬇⬇⬇")
+                print(f"{len(changes['added'])} new internships have been added!")
+                await channel_to_post.send(f"## New Internships")
+                await channel_to_post.send(f"{len(changes['added'])} new internships have been added!")
 
                 if len(changes["added"]) <= 10:
                     for post in changes["added"]:
@@ -162,62 +168,52 @@ async def update():
 
 
             if len(changes["cat_added"]) > 0:
-                previous_intership = -1
+                await channel_to_post.send(f"## Internship Category Additions")
+                for index,categories in changes["cat_added"].items():
+                    print(f"A new category was added for Internship #{index}!")
+                    await channel_to_post.send(f"A new category was added for Internship #{index}!")
+                    
+                    for category in categories:
+                        await channel_to_post.send(f"- {category}")
 
-                for category in changes["cat_added"]:
-                    if previous_intership != category[0]:
-                        print(f"⬇⬇⬇ A new category was added for Internship #{category[0]} - {category[1]} ⬇⬇⬇")
-                        await channel_to_post.send(f"⬇⬇⬇ A new category was added for Internship #{category[0]} - {category[1]} ⬇⬇⬇")
-
-                        embed, url_view = create_internship_embed(category[0])
-                        await channel_to_post.send(embed=embed, view=url_view, silent=True)
-                    else:
-                        print(f"⬆⬆⬆ More categories were added from Internship #{category[0]} - {category[1]} ⬆⬆⬆")
-                        await channel_to_post.send(f"⬆⬆⬆ More categories were added from Internship #{category[0]} - {category[1]} ⬆⬆⬆")
-
-                    previous_intership = category[0]
+                    embed, url_view = create_internship_embed(index)
+                    await channel_to_post.send(embed=embed, view=url_view, silent=True)
 
 
             
             if len(changes["cat_removed"]) > 0:
-                previous_intership = -1
+                await channel_to_post.send(f"## Internship Category Removals")
+                for index,categories in changes["cat_removed"].items():
+                    print(f"A category was removed for Internship #{index}!")
+                    await channel_to_post.send(f"A category was removed for Internship #{index}!")
+                    
+                    for category in categories:
+                        await channel_to_post.send(f"- {category}")
 
-                for category in changes["cat_removed"]:
-                    if previous_intership != category[0]:
-                        print(f"⬇⬇⬇ A category was removed from Internship #{category[0]} - {category[1]} ⬇⬇⬇")
-                        await channel_to_post.send(f"⬇⬇⬇ A category was removed from Internship #{category[0]} - {category[1]} ⬇⬇⬇")
-
-                        embed, url_view = create_internship_embed(category[0])
-                        await channel_to_post.send(embed=embed, view=url_view, silent=True)
-                    else:
-                        print(f"⬆⬆⬆ More categories were removed from Internship #{category[0]} - {category[1]} ⬆⬆⬆")
-                        await channel_to_post.send(f"⬆⬆⬆ More categories were removed from Internship #{category[0]} - {category[1]} ⬆⬆⬆")
-
-                    previous_intership = category[0]
+                    embed, url_view = create_internship_embed(index)
+                    await channel_to_post.send(embed=embed, view=url_view, silent=True)
 
 
             if len(changes["cat_changed"]) > 0:
-                previous_intership = -1
+                await channel_to_post.send(f"## Internship Changes")
+                for index,categories in changes["cat_changed"].items():
+                    print(f"A value in a category was changed for Internship #{index}!")
+                    await channel_to_post.send(f"A value in a category was changed for Internship #{index}!")
 
-                for category in changes["cat_changed"]:
-                    if previous_intership != category[0]:
-                        print(f"⬇⬇⬇ A category was changed for Internship #{category[0]} - {category[1]}: {category[2]} -> {category[3]} ⬇⬇⬇")
-                        await channel_to_post.send(f"⬇⬇⬇ A category was changed for Internship #{category[0]} - {category[1]}: {category[2]} -> {category[3]} ⬇⬇⬇")
+                    for category in categories:
+                        await channel_to_post.send(f"- {category[0]} ({category[1]} -> {category[2]})")
 
-                        embed, url_view = create_internship_embed(category[0])
-                        await channel_to_post.send(embed=embed, view=url_view, silent=True)
-                    else:
-                        print(f"⬆⬆⬆ More categories were changed from Internship #{category[0]} - {category[1]}: {category[2]} -> {category[3]} ⬆⬆⬆")
-                        await channel_to_post.send(f"⬆⬆⬆ More categories were changed from Internship #{category[0]} - {category[1]}: {category[2]} -> {category[3]} ⬆⬆⬆")
 
-                    previous_intership = category[0]
+                    embed, url_view = create_internship_embed(index)
+                    await channel_to_post.send(embed=embed, view=url_view, silent=True)
 
 
             print(f"Result: {changes['old_amount']} internships -> {len(client.internships_data)}")
 
             if len(client.internships_data) != changes['old_amount']:
-                await channel_to_post.send(f"Result: {changes['old_amount']} internships -> {len(client.internships_data)}")
-            await channel_to_post.send(f'\n\nDatabase updated! ({current_time()})')
+                await channel_to_post.send(f"## Internship Amount")
+                await channel_to_post.send(f"Result: {changes['old_amount']} internships -> {len(client.internships_data)} internships")
+            await channel_to_post.send(f'**\n\nDatabase updated! ({current_time()})**')
         else:
             print('No new update.')
             print(f"Database is up to date! ({len(client.internships_data)} internships as of {current_time()})")
@@ -236,6 +232,8 @@ async def force_refresh_json(interact: discord.Interaction):
     print("Forcing refresh on json...")
     client.internships_data = its.open_file()
     await interact.response.send_message(f"json file refreshed, {len(client.internships_data)}")
+
+
     
 
 

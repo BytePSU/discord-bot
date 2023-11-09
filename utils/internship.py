@@ -51,7 +51,7 @@ def open_file():
 
 
 def check_for_update():
-    changes = {'old_amount': 0, "added" : [], "removed" : [], "cat_added" : [], "cat_removed" : [], "cat_changed" : []}
+    changes = {'old_amount': 0, "added" : [], "removed" : [], "cat_added" : {}, "cat_removed" : {}, "cat_changed" : {}}
 
     new_internships = get_internship_file()
     old_internships = open_file()
@@ -62,18 +62,46 @@ def check_for_update():
         for section in ddiff:
             match section:
                 case "iterable_item_added" | "iterable_item_removed":
+                    # paths[0] = internship id
                     for data in ddiff[section]:
                         print(ddiff[section])
                         paths = data.path(output_format='list')
                         changes[f'{"added" if section == "iterable_item_added" else "removed"}'].append(paths[0])
                 case "dictionary_item_added" | "dictionary_item_removed":
+                    # paths[0] = internship id
+                    # paths[1] = new/removed category
+
+                    # tree - {1, ["category1", "category2"]}
+
                     for data in ddiff[section]:
                         paths = data.path(output_format='list')
-                        changes[f'{"cat_added" if section == "dictionary_item_added" else "cat_removed"}'].append([paths[0], paths[1]])
+
+                        if section == "dictionary_item_added":
+                            if paths[0] not in changes["cat_added"]:
+                                changes["cat_added"][paths[0]] = [paths[1]]
+                            else:
+                                changes["cat_added"][paths[0]].append(paths[1])
+
+                        elif section == "dictionary_item_removed":
+                            if paths[0] not in changes["cat_removed"]:
+                                changes["cat_removed"][paths[0]] = [paths[1]]
+                            else:
+                                changes["cat_removed"][paths[0]].append(paths[1])
+
                 case "values_changed":
+                    # paths[0] = internship id
+                    # paths[1] = changed category
+                    # data.t1 = old change
+                    # data.t2 = new change
+
+                    # tree - {1, [["catergory1", old_value, new_value], ["catergory2", old_value, new_value]]}
                     for data in ddiff[section]:
                         paths = data.path(output_format='list')
-                        changes[f'cat_changed'].append([paths[0], paths[1], data.t1, data.t2])
+
+                        if paths[0] not in changes["cat_changed"]:
+                            changes["cat_changed"][paths[0]] = [[paths[1], data.t1, data.t2]]
+                        else:
+                            changes["cat_changed"][paths[0]].append([paths[1], data.t1, data.t2])
 
         changes['old_amount'] = len(old_internships)
 

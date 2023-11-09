@@ -66,6 +66,7 @@ def generate_job_summary(internship, ai):
                 summary: str = wikimedia_json['extract']
                 summary = re.split('[.!?][\s]{1,2}(?=[A-Z])', summary)
 
+                print(summary[0] + '.')
                 return summary[0] + '.', wikimedia_more_results
             else:
                 return "Summary unavailable..", wikimedia_more_results
