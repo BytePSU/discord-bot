@@ -6,25 +6,28 @@ from re import sub
 
 def check_for_key(internship, key):
     try:
-        return internship[key] if internship[key] != "" else "Not Available"
+        return internship[key]
     except:
         match key:
             case "link":
-                return "https://www.levels.fyi/js/internshipData.json"
+                return "https://www.levels.fyi/internships"
             case "icon":
                 return "https://cdn.discordapp.com/embed/avatars/0.png"
             case _:
-                return 'Not Available'
+                return ''
             
 
 def get_internship_file(filter=True):
+    current_year = '2024'
+    current_season = 'Summer'
+
     levelsfyi_link = "https://www.levels.fyi/js/internshipData.json"
     levelsfyi_json = requests.get(levelsfyi_link).text
     internships = json.loads(levelsfyi_json)
 
     if filter:
-        internships = [yr for yr in internships if yr['yr'] == '2024']
-        internships = [seasons for seasons in internships if seasons['season'] == 'Summer']
+        internships = [yr for yr in internships if yr['yr'] == current_year]
+        internships = [seasons for seasons in internships if seasons['season'] == current_season]
 
     return internships
 

@@ -59,27 +59,41 @@ def create_internship_embed(index: int, ai: bool = False):
                           colour=discord.Colour(int(calc_avg_color(internship_data[index]['icon']).lstrip('#'), 16)),
                           timestamp=datetime.now())  
     
-    embed.set_thumbnail(url=its.check_for_key(internship_data[index], 'icon'))
-    embed.add_field(name="Location", value=its.check_for_key(internship_data[index], 'loc'))
-    embed.set_footer(text = f"New Internship at {its.check_for_key(internship_data[index], 'company')}")
 
-    if (its.check_for_key(internship_data[index], 'educationLevel') != 'Not Available'): 
+
+    embed.set_thumbnail(url=its.check_for_key(internship_data[index], 'icon'))
+
+
+    if (its.check_for_key(internship_data[index], 'loc') != ''):
+        embed.add_field(name="Location", value=its.check_for_key(internship_data[index], 'loc'))
+    else:
+        embed.add_field(name="Location", value='Unknown')
+   
+
+    if (its.check_for_key(internship_data[index], 'educationLevel') != ''): 
         embed.add_field(name="Education", value=its.check_for_key(internship_data[index], 'educationLevel'))
     else: 
-        embed.add_field(name="Education", value='Any')
+        embed.add_field(name="Education", value='Unknown')
 
-    if (its.check_for_key(internship_data[index], 'hourlySalary') != 'Not Available'): 
+
+    if (its.check_for_key(internship_data[index], 'hourlySalary') != ''): 
         embed.add_field(name="Salary", value=f"${round(its.check_for_key(internship_data[index],'monthlySalary'))}/mo • ${round(its.check_for_key(internship_data[index],'hourlySalary'))}/hr")
     else:
         embed.add_field(name="Salary", value='Unknown')
+
     
-    #Button integration
+    if (its.check_for_key(internship_data[index], 'moreInfo') != ''): 
+        embed.add_field(name="More Info", value=its.check_for_key(internship_data[index], 'moreInfo'))
+
     
+    embed.set_footer(text = f"New Internship at {its.check_for_key(internship_data[index], 'company')}")
+
+
     url_view = discord.ui.View() 
     if (its.check_for_key(internship_data[index], 'link') != 'Not Available'):
         url_view.add_item(discord.ui.Button(label='Apply now!', style=discord.ButtonStyle.url, url=its.check_for_key(internship_data[index], 'link')))
-    
-    #url_view.add_item(discord.ui.Button(label='Rating', style=discord.ButtonStyle.green))
+
+
 
     return embed, url_view
 
