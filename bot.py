@@ -272,6 +272,24 @@ async def bot_status(interact: discord.Interaction):
     await interact.response.send_message('\n'.join(status))
 
 
+@client.tree.command(name="credits")
+async def bot_status(interact: discord.Interaction):
+    credits = [
+        '**--BytePSU Internship Bot Team--**',
+        'Adam Torres Encarnacion (/AdamPSU) - Project Lead and Concept, UI/UX',
+        'Jason Herrera (/accountrev) - Internship Handling & Updating, Bot Backend',
+        'Franklin Collazo (/Hawlll) - Early Bot Implementation and Functionality',
+        'Benson Zheng (/ColdAndromeda) - Internship Filtering, UI/UX',
+        'Jeff Chiampi (/jdc308)- Support as Computer Science professor at Penn State Hazleton',
+        'Roberto Ramirez (/FallRoborex) - Support, Credits Idea',
+        '',
+        "**Thanks to everyone who participated in creating this internship bot!**"
+    ]
+
+
+    await interact.response.send_message('\n'.join(credits))
+
+
 
     
 
