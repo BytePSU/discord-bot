@@ -1,7 +1,8 @@
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 from random import randint
 import traceback
+from time import time
 
 import discord
 from discord import app_commands
@@ -13,7 +14,7 @@ from utils import internship as its
 from utils.color import calc_avg_color
 from utils.job_descriptions import generate_job_summary
 from utils.format_dt import current_time
-#its.update_file()
+its.update_file()
 
 
 class Bot(discord.Client):  
@@ -24,11 +25,19 @@ class Bot(discord.Client):
         self.tree = app_commands.CommandTree(self)
         self.internships_data = its.open_file()
         self.testing = os.getenv('TESTING') == '1'
+
+        self.created = time()
+        self.last_update = time()
+
+        self.errors = 0
     
     async def setup_hook(self):
         # This copies the global commands over to the guild/server.
         self.tree.copy_global_to(guild=MY_GUILD)
         await self.tree.sync(guild=MY_GUILD)
+
+    def increase_error(self):
+        self.errors += 1
 
 
 client = Bot()
@@ -149,6 +158,7 @@ async def update():
 
     ping = '<@&1165743852708180049>'
     channel_to_post = client.get_channel(int(CHANNEL_ID))
+    client.last_update = time()
     
     try:
         status, changes = its.check_for_update()
@@ -246,6 +256,21 @@ async def force_refresh_json(interact: discord.Interaction):
     print("Forcing refresh on json...")
     client.internships_data = its.open_file()
     await interact.response.send_message(f"json file refreshed, {len(client.internships_data)}")
+
+
+@client.tree.command(name="status")
+async def bot_status(interact: discord.Interaction):
+    status = [
+        "**BytePSU Internships Bot**",
+        f"Currently watching {len(client.internships_data)} internships",
+        '',
+        f"**Uptime**: {timedelta(seconds=int(time()-client.created))}",
+        f"**Last internship check**: {time()-client.last_update:.2f} seconds ago"
+    ]
+
+
+    await interact.response.send_message('\n'.join(status))
+
 
 
     
