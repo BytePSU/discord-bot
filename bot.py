@@ -159,8 +159,8 @@ async def update():
 
             if len(changes["removed"]) > 0:
                 print(f"{len(changes['removed'])} internships have been removed.")
-                await channel_to_post.send(f"## Removed Internships")
-                await channel_to_post.send(f"{len(changes['removed'])} internships have been removed.")
+                await channel_to_post.send(f"## Removed Internships", silent=True)
+                await channel_to_post.send(f"{len(changes['removed'])} internships have been removed.", silent=True)
 
                 if len(changes["removed"]) <= 10:
                     for post in changes["removed"]:
@@ -172,8 +172,8 @@ async def update():
 
             if len(changes["added"]) > 0:
                 print(f"{len(changes['added'])} new internships have been added!")
-                await channel_to_post.send(f"## New Internships")
-                await channel_to_post.send(f"{len(changes['added'])} new internships have been added!")
+                await channel_to_post.send(f"## New Internships", silent=True)
+                await channel_to_post.send(f"{len(changes['added'])} new internships have been added!", silent=True)
 
                 if len(changes["added"]) <= 10:
                     for post in changes["added"]:
@@ -182,52 +182,52 @@ async def update():
 
 
             if len(changes["cat_added"]) > 0:
-                await channel_to_post.send(f"## Internship Category Additions")
+                await channel_to_post.send(f"## Internship Category Additions", silent=True)
                 for index,categories in changes["cat_added"].items():
-                    print(f"A new category was added for Internship #{index}!")
-                    await channel_to_post.send(f"A new category was added for Internship #{index}!")
+                    print(f"A new category was added for Internship #{index + changes['offset']}!")
+                    await channel_to_post.send(f"A new category was added for Internship #{index + changes['offset']}!", silent=True)
                     
                     for category in categories:
-                        await channel_to_post.send(f"- {category}")
+                        await channel_to_post.send(f"- {category}", silent=True)
 
-                    embed, url_view = create_internship_embed(index)
+                    embed, url_view = create_internship_embed(index + changes['offset'])
                     await channel_to_post.send(embed=embed, view=url_view, silent=True)
 
 
             
             if len(changes["cat_removed"]) > 0:
-                await channel_to_post.send(f"## Internship Category Removals")
+                await channel_to_post.send(f"## Internship Category Removals", silent=True)
                 for index,categories in changes["cat_removed"].items():
-                    print(f"A category was removed for Internship #{index}!")
-                    await channel_to_post.send(f"A category was removed for Internship #{index}!")
+                    print(f"A category was removed for Internship #{index + changes['offset']}!")
+                    await channel_to_post.send(f"A category was removed for Internship #{index + changes['offset']}!", silent=True)
                     
                     for category in categories:
                         await channel_to_post.send(f"- {category}")
 
-                    embed, url_view = create_internship_embed(index)
+                    embed, url_view = create_internship_embed(index + changes['offset'])
                     await channel_to_post.send(embed=embed, view=url_view, silent=True)
 
 
             if len(changes["cat_changed"]) > 0:
-                await channel_to_post.send(f"## Internship Changes")
+                await channel_to_post.send(f"## Internship Changes", silent=True)
                 for index,categories in changes["cat_changed"].items():
-                    print(f"A value in a category was changed for Internship #{index}!")
-                    await channel_to_post.send(f"A value in a category was changed for Internship #{index}!")
+                    print(f"A value in a category was changed for Internship #{index + changes['offset']}!")
+                    await channel_to_post.send(f"A value in a category was changed for Internship #{index + changes['offset']}!", silent=True)
 
                     for category in categories:
-                        await channel_to_post.send(f"- {category[0]} ({category[1]} -> {category[2]})")
+                        await channel_to_post.send(f"- {category[0]} ({category[1]} -> {category[2]})", silent=True)
 
 
-                    embed, url_view = create_internship_embed(index)
+                    embed, url_view = create_internship_embed(index + changes['offset'])
                     await channel_to_post.send(embed=embed, view=url_view, silent=True)
 
 
-            print(f"Result: {changes['old_amount']} internships -> {len(client.internships_data)}")
+            print(f"Result: {changes['old_amount']} internships -> {len(client.internships_data)}", silent=True)
 
             if len(client.internships_data) != changes['old_amount']:
-                await channel_to_post.send(f"## Internship Amount")
-                await channel_to_post.send(f"Result: {changes['old_amount']} internships -> {len(client.internships_data)} internships")
-            await channel_to_post.send(f'**\n\nDatabase updated! ({current_time()})**')
+                await channel_to_post.send(f"## Internship Amount", silent=True)
+                await channel_to_post.send(f"Result: {changes['old_amount']} internships -> {len(client.internships_data)} internships", silent=True)
+            await channel_to_post.send(f'**\n\nDatabase updated! ({current_time()})**', silent=True)
         else:
             print('No new update.')
             print(f"Database is up to date! ({len(client.internships_data)} internships as of {current_time()})")

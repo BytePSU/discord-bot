@@ -54,7 +54,7 @@ def open_file():
 
 
 def check_for_update():
-    changes = {'old_amount': 0, "added" : [], "removed" : [], "cat_added" : {}, "cat_removed" : {}, "cat_changed" : {}}
+    changes = {'old_amount': 0, "added" : [], "removed" : [], "cat_added" : {}, "cat_removed" : {}, "cat_changed" : {}, "offset" : 0}
 
     new_internships = get_internship_file()
     old_internships = open_file()
@@ -107,6 +107,7 @@ def check_for_update():
                             changes["cat_changed"][paths[0]].append([paths[1], data.t1, data.t2])
 
         changes['old_amount'] = len(old_internships)
+        changes['offset'] = len(changes['added']) - len(changes["removed"])
 
         return True, changes
                     
