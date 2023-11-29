@@ -98,11 +98,8 @@ def create_internship_embed(index: int, ai: bool = False):
     embed.set_footer(text = f"New Internship at {its.check_for_key(internship_data[index], 'company')}")
 
 
-    url_view = discord.ui.View() 
-    if (its.check_for_key(internship_data[index], 'link') != 'Not Available'):
-        url_view.add_item(discord.ui.Button(label='Apply now!', style=discord.ButtonStyle.url, url=its.check_for_key(internship_data[index], 'link')))
-
-
+    url_view = discord.ui.View()
+    url_view.add_item(discord.ui.Button(label='Apply now!', style=discord.ButtonStyle.url, url=its.check_for_key(internship_data[index], 'link')))
 
     return embed, url_view
 
@@ -148,6 +145,44 @@ async def random_internship(interact: discord.Interaction):
         await interact.followup.send(embed=embed, view=url_view)
     except Exception as e:
         await interact.response.send_message(f"An exception has occurred. Please refer to the traceback below and blame someone.\n```{traceback.format_exc()}```")
+
+
+@client.tree.command(name='search')
+async def search(interact: discord.Interaction, search_term: str):
+    '''Allows user to search for internships'''
+    await interact.response.defer()
+
+    internship_data = client.internships_data
+    results = []
+
+
+
+    for index in range(len(internship_data)):
+        name = internship_data[index].get('company')
+        print(name)
+        if name:
+            if search_term.lower() in name.lower():
+                results.append(index)
+
+    if len(results) != 0:
+        embed = discord.Embed(title= f"{len(results)} result{'s' if len(results) > 1 else ''}", colour=discord.Colour(0xff0000))
+        
+        for result in results:
+            embed.add_field(name=f"Internship #{result}", value=f'{its.check_for_key(internship_data[result], "company")} - {its.check_for_key(internship_data[result], "title")} ({its.check_for_key(internship_data[result], "educationLevel")})')
+    else:
+        embed = discord.Embed(title= "No results found. Please try again with a different search.", colour=discord.Colour(0xff0000))
+
+    await interact.followup.send(embed=embed)
+    
+
+
+
+    
+
+
+
+
+
 
 
 @tasks.loop(seconds=15)
@@ -232,7 +267,7 @@ async def update():
                     await channel_to_post.send(embed=embed, view=url_view, silent=True)
 
 
-            print(f"Result: {changes['old_amount']} internships -> {len(client.internships_data)}", silent=True)
+            print(f"Result: {changes['old_amount']} internships -> {len(client.internships_data)}")
 
             if len(client.internships_data) != changes['old_amount']:
                 await channel_to_post.send(f"## Internship Amount", silent=True)
@@ -249,13 +284,7 @@ async def update():
         return
     
     await update_account_status(len(client.internships_data))
-    
 
-@client.tree.command(name="force_refresh")
-async def force_refresh_json(interact: discord.Interaction):
-    print("Forcing refresh on json...")
-    client.internships_data = its.open_file()
-    await interact.response.send_message(f"json file refreshed, {len(client.internships_data)}")
 
 
 @client.tree.command(name="status")
@@ -288,6 +317,13 @@ async def bot_status(interact: discord.Interaction):
 
 
     await interact.response.send_message('\n'.join(credits))
+
+
+@client.tree.command(name="force_refresh")
+async def force_refresh_json(interact: discord.Interaction):
+    print("Forcing refresh on json...")
+    client.internships_data = its.open_file()
+    await interact.response.send_message(f"json file refreshed, {len(client.internships_data)}")
 
 
 
